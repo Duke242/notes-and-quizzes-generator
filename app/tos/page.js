@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { getSEOTags } from "@/libs/seo";
-import config from "@/config";
+import Link from "next/link"
+import { getSEOTags } from "@/libs/seo"
+import config from "@/config"
 
 // CHATGPT PROMPT TO GENERATE YOUR TERMS & SERVICES — replace with your own data 👇
 
@@ -28,7 +28,7 @@ import config from "@/config";
 export const metadata = getSEOTags({
   title: `Terms and Conditions | ${config.appName}`,
   canonicalUrlRelative: "/tos",
-});
+})
 
 const TOS = () => {
   return (
@@ -57,43 +57,37 @@ const TOS = () => {
           className="leading-relaxed whitespace-pre-wrap"
           style={{ fontFamily: "sans-serif" }}
         >
-          {`Last Updated: September 26, 2023
+          {`Terms of Service for SelfLearner
 
-Welcome to ShipFast!
+This document outlines the terms and conditions governing the use of the SelfLearner website (https://www.selflearner.today/). By accessing and using this website, you agree to comply with these terms. If you do not agree with any part of these terms, please do not use our website.
 
-These Terms of Service ("Terms") govern your use of the ShipFast website at https://shipfa.st ("Website") and the services provided by ShipFast. By using our Website and services, you agree to these Terms.
+1. Description of the Service
 
-1. Description of ShipFast
+SelfLearner provides a platform for a better way to learn. Users can access educational content and services through our website.
 
-ShipFast is a platform that offers a JavaScript code boilerplate to assist entrepreneurs in launching their startups more efficiently.
+2. User Data Collection
 
-2. Ownership and Usage Rights
+In the course of providing our services, SelfLearner collects and processes user data, including but not limited to name, email, and payment information. We are committed to protecting your privacy, and details on how we handle your information can be found in our Privacy Policy.
 
-When you purchase a package from ShipFast, you gain the right to download and use the code provided for creating applications. You own the code you create but do not have the right to resell it. We offer a full refund within 7 days of purchase, as specified in our refund policy.
+3. Non-Personal Data Collection
 
-3. User Data and Privacy
+We may also collect non-personal data through the use of web cookies. This helps us enhance your user experience and improve our services. For more information, please refer to our Privacy Policy.
 
-We collect and store user data, including name, email, and payment information, as necessary to provide our services. For details on how we handle your data, please refer to our Privacy Policy at https://shipfa.st/privacy-policy.
+4. Governing Law
 
-4. Non-Personal Data Collection
+These terms are governed by the laws of the United States of America. Any disputes arising from the use of our services shall be subject to the exclusive jurisdiction of the courts in the USA.
 
-We use web cookies to collect non-personal data for the purpose of improving our services and user experience.
+5. Updates to the Terms
 
-5. Governing Law
+Users will be notified of any updates to these terms via email. It is your responsibility to review these terms regularly. Continued use of the SelfLearner website after changes are made constitutes acceptance of the updated terms.
 
-These Terms are governed by the laws of France.
+Contact Information:
 
-6. Updates to the Terms
-
-We may update these Terms from time to time. Users will be notified of any changes via email.
-
-For any questions or concerns regarding these Terms of Service, please contact us at marc@shipfa.st.
-
-Thank you for using ShipFast!`}
+For any questions or concerns regarding these terms, you can contact us at peakmotivation00@gmail.com.`}
         </pre>
       </div>
     </main>
-  );
-};
+  )
+}
 
-export default TOS;
+export default TOS
