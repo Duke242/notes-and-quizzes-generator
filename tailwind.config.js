@@ -7,6 +7,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        // prettier-ignore
+        'overcast': "#F1F1F2",
+        // prettier-ignore
+        'warmGray': "#BCBCBE",
+        // prettier-ignore
+        'ice': "#A1D6E2",
+        // prettier-ignore
+        'glacierBlue': "#1995AD",
+      },
       backgroundImage: {
         gradient:
           "linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)",
@@ -65,4 +75,4 @@ module.exports = {
     // https://daisyui.com/
     themes: ["light", "dark"],
   },
-};
+}
