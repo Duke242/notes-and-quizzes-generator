@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { getSEOTags } from "@/libs/seo";
-import config from "@/config";
+import Link from "next/link"
+import { getSEOTags } from "@/libs/seo"
+import config from "@/config"
 
 // CHATGPT PROMPT TO GENERATE YOUR PRIVACY POLICY — replace with your own data 👇
 
@@ -28,7 +28,7 @@ import config from "@/config";
 export const metadata = getSEOTags({
   title: `Privacy Policy | ${config.appName}`,
   canonicalUrlRelative: "/privacy-policy",
-});
+})
 
 const PrivacyPolicy = () => {
   return (
@@ -101,11 +101,11 @@ Email: marc@shipfa.st
 
 For all other inquiries, please visit our Contact Us page on the Website.
 
-By using ShipFast, you consent to the terms of this Privacy Policy.`}
+By using ShipFast, you consent to the terms of this Privacy Policy..`}
         </pre>
       </div>
     </main>
-  );
-};
+  )
+}
 
-export default PrivacyPolicy;
+export default PrivacyPolicy

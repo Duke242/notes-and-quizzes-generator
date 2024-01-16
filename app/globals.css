@@ -2,9 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
+html {
+  overflow: hidden;
+  height: 100%;
+}
+
 body {
-  scroll-behavior: smooth !important;
+  overflow: auto;
+  height: 100%;
 }
 
 /* It makes the HTML progress bar filling smooth when value change. */

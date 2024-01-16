@@ -1,27 +1,27 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { useState } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import toast from "react-hot-toast";
-import config from "@/config";
+import Link from "next/link"
+import { useState } from "react"
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import toast from "react-hot-toast"
+import config from "@/config"
 
 // This a login/singup page for Supabase Auth.
 // Successfull login redirects to /api/auth/callback where the Code Exchange is processed (see app/api/auth/callback/route.js).
 export default function Login() {
-  const supabase = createClientComponentClient();
-  const [email, setEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false);
+  const supabase = createClientComponentClient()
+  const [email, setEmail] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(false)
 
   const handleSignup = async (e, options) => {
-    e?.preventDefault();
+    e?.preventDefault()
 
-    setIsLoading(true);
+    setIsLoading(true)
 
     try {
-      const { type, provider } = options;
-      const redirectURL = window.location.origin + "/api/auth/callback";
+      const { type, provider } = options
+      const redirectURL = window.location.origin + "/api/auth/callback"
 
       if (type === "oauth") {
         await supabase.auth.signInWithOAuth({
@@ -29,25 +29,25 @@ export default function Login() {
           options: {
             redirectTo: redirectURL,
           },
-        });
+        })
       } else if (type === "magic_link") {
         await supabase.auth.signInWithOtp({
           email,
           options: {
             emailRedirectTo: redirectURL,
           },
-        });
+        })
 
-        toast.success("Check your emails!");
+        toast.success("Check your emails!")
 
-        setIsDisabled(true);
+        setIsDisabled(true)
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   return (
     <main className="p-8 md:p-24" data-theme={config.colors.theme}>
@@ -106,7 +106,7 @@ export default function Login() {
               />
             </svg>
           )}
-          Sign-up with Google
+          Sign-in with Google
         </button>
 
         <div className="divider text-xs text-base-content/50 font-medium">
@@ -140,5 +140,5 @@ export default function Login() {
         </form>
       </div>
     </main>
-  );
+  )
 }
