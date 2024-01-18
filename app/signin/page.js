@@ -22,14 +22,15 @@ export default function Login() {
     try {
       const { type, provider } = options
       const redirectURL = window.location.origin + "/api/auth/callback"
-
+      console.log({ type })
       if (type === "oauth") {
-        await supabase.auth.signInWithOAuth({
+        const response = await supabase.auth.signInWithOAuth({
           provider,
           options: {
             redirectTo: redirectURL,
           },
         })
+        console.log({ r: JSON.stringify(response, null, 2) })
       } else if (type === "magic_link") {
         await supabase.auth.signInWithOtp({
           email,

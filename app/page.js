@@ -19,7 +19,7 @@ export default function Page() {
           </p>
         </div>
         <ButtonSignin
-          text="Login"
+          text="Sign-In"
           extraStyle={
             "bg-ice w-48 text-lg hover:text-glacierBlue mx-auto flex justify-center mt-6"
           }

@@ -24,7 +24,7 @@ const links = [
 ]
 
 const cta = (
-  <ButtonSignin text="Login" extraStyle={"bg-ice hover:text-glacierBlue"} />
+  <ButtonSignin text="Sign-In" extraStyle={"bg-ice hover:text-glacierBlue"} />
 )
 
 // A header with a logo on the left, links in the center (like Pricing, etc...), and a CTA (like Get Started or Login) on the right.

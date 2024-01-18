@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
 import { useRouter } from "next/navigation"
 
@@ -12,12 +12,11 @@ const BottomDivWithForm = () => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault()
-    console.log({ e: evt.target[0].value, evt: evt.target[1].value })
+
     const payload = {
       title: evt.target[0].value,
       content: evt.target[1].value,
     }
-    console.log({ payload })
     const response = await fetch("/api/post", {
       method: "POST",
       headers: {
@@ -25,6 +24,7 @@ const BottomDivWithForm = () => {
       },
       body: JSON.stringify(payload),
     })
+
     const ret = await response.json()
     if (ret.success) {
       toast.success(`Lesson posted. Thank you!`, {
@@ -35,7 +35,6 @@ const BottomDivWithForm = () => {
         draggable: false,
       })
       toggleForm()
-      router.push("/dashboard")
     }
   }
 
@@ -71,7 +70,7 @@ const BottomDivWithForm = () => {
             placeholder="Title"
             className="border rounded-md px-2 py-1 mb-2 mx-6 focus:outline-none"
             required
-            maxLength="100"
+            maxLength="50"
           />
 
           <textarea
@@ -84,7 +83,7 @@ const BottomDivWithForm = () => {
 
           <button
             type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded-md w-fit mx-auto"
+            className="bg-blue-500 text-white px-4 py-2 rounded-md w-fit mx-auto hover:bg-blue-600 transition"
           >
             Submit
           </button>
