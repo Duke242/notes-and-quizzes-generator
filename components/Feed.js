@@ -21,8 +21,6 @@ export default async function Feed({ user }) {
     console.error("Error fetching user notes:", error.message)
     return null
   }
-
-  console.log({ notes: notes.id })
   return (
     <div>
       {notes.length > 0 ? (
@@ -38,7 +36,9 @@ export default async function Feed({ user }) {
           ))}
         </main>
       ) : (
-        <p className="text-xl text-center">Add something you're learning!</p>
+        <p className="text-xl text-center">
+          Add something you&apos;re learning.
+        </p>
       )}
       <BottomDivWithForm />
     </div>

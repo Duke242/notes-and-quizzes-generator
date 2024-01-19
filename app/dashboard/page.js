@@ -15,20 +15,24 @@ export default async function Dashboard() {
   } = await supabase.auth.getSession()
 
   return (
-    <div>
-      <header className="p-8">
-        {/* <Sidebar /> */}
-        <ButtonAccount />
-        <section className="max-w ml-auto flex">
-          <h1 className="mx-auto text-5xl font-bold text-glacierBlue">
-            SelfLearner
-          </h1>
-        </section>
-        <h1 className="text-xl md:text-4xl font-normal mt-4 text-glacierBlue">
-          Lessons
-        </h1>
+    <div className="min-h-screen flex flex-col">
+      <header className="bg-white p-8 flex h-1 justify-center items-center shadow-2xl mt-4">
+        {/* <section className="max-w mx-auto text-center">
+          <h1 className="text-3xl text-glacierBlue">SelfLearner</h1>
+        </section> */}
+        <div className="rounded-b-md mr-auto">
+          {/* Content with shadow and rounded bottom corners */}
+          {/* Example: <Sidebar /> */}
+          <ButtonAccount />
+        </div>
       </header>
-      <Feed user={session.user} />
+
+      <main className="flex-grow bg-white rounded-b-md">
+        <h1 className="text-2xl text-glacierBlue p-8 font-bold">Lessons</h1>
+        <div className="bg-overcast h-fit pb-1 mx-4 rounded-lg">
+          <Feed user={session.user} />
+        </div>
+      </main>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
 
 html {
   overflow: hidden;
@@ -10,6 +11,7 @@ html {
 body {
   overflow: auto;
   height: 100%;
+  font-family: "Nunito", sans-serif;
 }
 
 .transition-opacity {
