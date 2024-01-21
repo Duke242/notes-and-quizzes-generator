@@ -1,7 +1,7 @@
 "use client"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { toast } from "react-hot-toast"
-import { useRouter } from "next/navigation"
+
 const BottomDivWithForm = () => {
   const [showForm, setShowForm] = useState(false)
   const [showQuiz, setShowQuiz] = useState(false)
@@ -10,17 +10,39 @@ const BottomDivWithForm = () => {
 
   const toggleForm = () => {
     setShowForm((prevShowForm) => !prevShowForm)
-    setShowQuiz(false) // Close the quiz form when toggling to lesson form
   }
 
-  // const handleQuizButtonClick = () => {
-  //   setShowQuiz((prevShowQuiz) => !prevShowQuiz)
-  //   setShowForm(false) // Close the lesson form when toggling to quiz form
-  // }
+  const handleSubmit = async (evt) => {
+    evt.preventDefault()
+    console.log({ e: evt.target[0].value, evt: evt.target[1].value })
+    const payload = {
+      title: evt.target[0].value,
+      content: evt.target[1].value,
+    }
+    console.log({ payload })
+    const response = await fetch("/api/post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    })
+    const ret = await response.json()
+    if (ret.success) {
+      toast.success(`Lesson posted. Thank you!`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: false,
+      })
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // Add your form submission logic here
+      setTimeout(() => {
+        window.location.reload()
+      }, 200)
+
+      toggleForm()
+    }
   }
 
   return (
@@ -62,9 +84,6 @@ const BottomDivWithForm = () => {
               maxLength="50"
             />
           )}
-
-          {/* Display either lesson or quiz header based on the active form */}
-          {/* {showQuiz && <p className="text-xl font-bold mb-4">Quiz Title</p>} */}
 
           <textarea
             value={content}

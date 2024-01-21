@@ -29,7 +29,7 @@ export default async function Dashboard() {
 
       <main className="flex-grow bg-white rounded-b-md">
         <h1 className="text-2xl text-glacierBlue p-8 font-bold">Lessons</h1>
-        <div className="bg-overcast h-fit pb-1 mx-4 rounded-lg">
+        <div className="bg-overcast h-fit pb-1 rounded-lg">
           <Feed user={session.user} />
         </div>
       </main>

@@ -1,13 +1,79 @@
 "use client"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { deleteLesson } from "@/libs/deleteLesson"
 import { toast } from "react-hot-toast"
+import { MdCancel } from "react-icons/md"
+import { Rings, SpinningCircles } from "react-loading-icons"
 
 const Lesson = ({ title, content, date, postId }) => {
   const [lessonOpen, setLessonOpen] = useState(false)
   const [explanationOpen, setExplanationOpen] = useState(false)
   const [quizOpen, setQuizOpen] = useState(false)
+  const [explanation, setExplanation] = useState("")
+  const [quiz, setQuiz] = useState("")
 
+  useEffect(() => {
+    if (explanationOpen) {
+      fetchExplanation(title)
+    }
+  }, [explanationOpen])
+
+  useEffect(() => {
+    if (quizOpen) {
+      fetchQuiz(title)
+    }
+  }, [quizOpen])
+
+  const fetchExplanation = async (title) => {
+    setExplanation("Loading...")
+    try {
+      const response = await fetch("/api/openai/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title }),
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        // console.log({ data })
+        setExplanation(data.response.choices[0].message.content)
+      } else {
+        setExplanation("Error")
+        console.error("Failed to fetch quiz")
+      }
+    } catch (error) {
+      setExplanation("Error")
+      console.error("Error fetching quiz")
+    }
+  }
+
+  const fetchQuiz = async (title) => {
+    setQuiz("Loading...")
+
+    try {
+      const response = await fetch("/api/openai/quiz", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title }),
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        // console.log({ data })
+        setQuiz(data.response.choices[0].message.content)
+      } else {
+        setQuiz("Error")
+        console.error("Failed to fetch quiz")
+      }
+    } catch (error) {
+      setQuiz("Error")
+      console.error("Error fetching quiz")
+    }
+  }
   const handleLessonClick = () => {
     setLessonOpen(true)
   }
@@ -32,6 +98,9 @@ const Lesson = ({ title, content, date, postId }) => {
     setLessonOpen(false)
     setExplanationOpen(false)
     setQuizOpen(false)
+    setTimeout(() => {
+      window.location.reload()
+    }, 200)
   }
 
   let truncatedContent = content.substring(0, 120)
@@ -65,29 +134,30 @@ const Lesson = ({ title, content, date, postId }) => {
           >
             <button
               onClick={handleCloseClick}
-              className="bg-red-500 text-white px-4 py-2 rounded absolute top-0 right-0 mt-2 mr-2 flex items-center transition hover:bg-red-600"
+              className="bg-white text-white rounded relative top-0 left-0 mt-2 mr-0 mr-2 flex items-center transition hover:bg-gray-200"
             >
-              <span className="text-lg font-bold">X</span>
+              <span className="text-2xl font-bold text-red-500">
+                <MdCancel size={40} />
+              </span>
             </button>
+            {quizOpen ? null : (
+              <h2 className="text-2xl font-bold mt-4 p-6 text-glacierBlue">
+                {title}
+              </h2>
+            )}
+            {quizOpen ? null : <p className="ml-6 mb-6">{content}</p>}
 
-            <h2 className="text-2xl font-bold mt-4 p-6 text-glacierBlue">
-              {title}
-            </h2>
-            <p className="ml-6 mb-6">{content}</p>
-
-            {explanationOpen && (
+            {!quizOpen && explanationOpen && (
               <div className="bg-gray-100 p-4 mt-4 rounded mb-2">
                 <p className="text-lg font-bold text-glacierBlue">
-                  This is the explanation.
+                  {explanation}
                 </p>
               </div>
             )}
 
             {quizOpen && (
               <div className="bg-yellow-200 p-4 mt-4 rounded mb-2">
-                <p className="text-lg font-bold text-yellow-800">
-                  This is the quiz.
-                </p>
+                <pre className="text-lg font-bold text-yellow-800">{quiz}</pre>
               </div>
             )}
 

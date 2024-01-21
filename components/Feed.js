@@ -24,7 +24,7 @@ export default async function Feed({ user }) {
   return (
     <div>
       {notes.length > 0 ? (
-        <main className="flex flex-wrap overflow-visible pr-2 mb-14 ml-10">
+        <main className="flex flex-wrap pr-2 mb-14 ml-10">
           {notes.map((note) => (
             <Lesson
               key={note.id}
