@@ -16,6 +16,7 @@ export default async function Feed({ user }) {
     .from("notes")
     .select("*")
     .eq("user_id", user?.id)
+    .order("created_at", { ascending: false })
 
   if (error) {
     console.error("Error fetching user notes:", error.message)
@@ -36,7 +37,7 @@ export default async function Feed({ user }) {
           ))}
         </main>
       ) : (
-        <p className="text-xl text-center">
+        <p className="text-xl text-center bg-white">
           Add something you&apos;re learning.
         </p>
       )}

@@ -54,7 +54,7 @@ const BottomDivWithForm = () => {
       <div className="relative">
         <button
           onClick={toggleForm}
-          className={`text-white px-4 py-2 ml-2 rounded-full transform absolute left-1/2 -translate-x-1/2 ${
+          className={`text-white px-4 py-2 ml-2 rounded-full transform absolute left-1/2 -translate-x-1/2 hover:opacity-60 transition ${
             showForm
               ? "-translate-y-16 bg-red-500 font-bold"
               : "-translate-y-16 bg-glacierBlue font-bold"
@@ -88,7 +88,7 @@ const BottomDivWithForm = () => {
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            placeholder="Content"
+            placeholder="Notes"
             className="border rounded-md px-2 py-1 mb-2 h-64 mx-6 resize-none focus:outline-none"
             maxLength="1500"
           />

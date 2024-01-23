@@ -1,10 +1,8 @@
-import { NextResponse } from "next/server"
-import { createSupabaseServerClient } from "@/libs/createSupabaseServerClient"
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 import { cookies } from "next/headers"
 import { revalidatePath } from "next/cache"
-
-export const dynamic = "force-dynamic"
+import { createSupabaseServerClient } from "@/libs/createSupabaseServerClient"
+import { NextResponse } from "next/server"
 
 export async function POST(req) {
   const supabase = createSupabaseServerClient()
@@ -14,24 +12,16 @@ export async function POST(req) {
     data: { session },
   } = await supabaseSession.auth.getSession()
 
-  console.log({ a: session.user.id })
-
   const payload = await req.json()
-
-  // console.log({ payload })
+  console.log({ payload })
 
   try {
     const { data, error } = await supabase
       .from("notes")
-      .insert([
-        {
-          user_id: session.user.id,
-          title: payload.title,
-          content: payload.content,
-        },
-      ])
+      .update({ content: payload.explanation })
+      .eq("id", payload.postId)
+      .eq("user_id", session.user.id)
       .select()
-    revalidatePath("/dashboard")
 
     if (error) {
       throw error

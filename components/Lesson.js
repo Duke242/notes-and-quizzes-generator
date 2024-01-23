@@ -11,6 +11,7 @@ const Lesson = ({ title, content, date, postId }) => {
   const [quizOpen, setQuizOpen] = useState(false)
   const [explanation, setExplanation] = useState("")
   const [quiz, setQuiz] = useState("")
+  // const [notesSet, setNotesSet] = useState(false)
 
   useEffect(() => {
     if (explanationOpen) {
@@ -23,6 +24,31 @@ const Lesson = ({ title, content, date, postId }) => {
       fetchQuiz(title)
     }
   }, [quizOpen])
+
+  const handleSetNotesClick = async () => {
+    // Perform backend operation to set notes (replace this with your actual backend logic)
+    try {
+      // Example: send a request to your backend API
+      const response = await fetch("/api/setNotes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ postId, explanation }),
+      })
+
+      if (response.ok) {
+        toast.success("Notes set successfully. Refresh the page.")
+        // setNotesSet(true)
+      } else {
+        toast.error("Failed to set notes")
+        console.error("Failed to set notes on the backend")
+      }
+    } catch (error) {
+      toast.error("Error setting notes")
+      console.error("Error setting notes on the backend", error)
+    }
+  }
 
   const fetchExplanation = async (title) => {
     setExplanation("Loading...")
@@ -39,6 +65,7 @@ const Lesson = ({ title, content, date, postId }) => {
         const data = await response.json()
         // console.log({ data })
         setExplanation(data.response.choices[0].message.content)
+        // setNotesSet(true)
       } else {
         setExplanation("Error")
         console.error("Failed to fetch quiz")
@@ -48,7 +75,6 @@ const Lesson = ({ title, content, date, postId }) => {
       console.error("Error fetching quiz")
     }
   }
-
   const fetchQuiz = async (title) => {
     setQuiz("Loading...")
 
@@ -58,13 +84,14 @@ const Lesson = ({ title, content, date, postId }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ title }),
+        body: JSON.stringify({ title, explanation }),
       })
 
       if (response.ok) {
         const data = await response.json()
         // console.log({ data })
         setQuiz(data.response.choices[0].message.content)
+        console.log({ quiz: data.response.choices[0].message.content })
       } else {
         setQuiz("Error")
         console.error("Failed to fetch quiz")
@@ -110,9 +137,9 @@ const Lesson = ({ title, content, date, postId }) => {
     <div>
       <div
         onClick={handleLessonClick}
-        className="w-56 h-48 bg-white ml-8 p-3 py-6 pb-4 pt-1 relative rounded-md hover:cursor-pointer hover:bg-ice duration-300 transition group hover:drop-shadow-xl clickable-lesson mt-8"
+        className="w-56 h-48 bg-overcast ml-8 p-3 py-6 pb-4 pt-1 relative rounded-md hover:cursor-pointer hover:bg-ice duration-300 transition group hover:drop-shadow-xl clickable-lesson mt-8"
       >
-        <h1 className="font-bold text-lg transition group-hover:text-overcast">
+        <h1 className="text-lg transition group-hover:text-overcast">
           {truncatedTitle}
         </h1>
         <p className="text-gray-400 transition-opacity group-hover:text-glacierBlue text-clip">
@@ -126,11 +153,11 @@ const Lesson = ({ title, content, date, postId }) => {
       {lessonOpen && (
         <div
           onClick={handleCloseClick}
-          className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-10"
+          className="fixed top-0 left-0 w-full h-full overflow-y-scroll flex pt-24 pb-8 items-center justify-center bg-black bg-opacity-50 z-10"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-white p-2 rounded shadow-lg w-3/5 mx-auto relative"
+            className="bg-white p-2 rounded shadow-lg w-3/5 mx-auto relative animate-jump-in animate-delay-0 animate-once animate-duration-300"
           >
             <button
               onClick={handleCloseClick}
@@ -141,23 +168,31 @@ const Lesson = ({ title, content, date, postId }) => {
               </span>
             </button>
             {quizOpen ? null : (
-              <h2 className="text-2xl font-bold mt-4 p-6 text-glacierBlue">
+              <h2 className="text-2xl font-bold mt-4 p-6 pt-0 text-glacierBlue">
                 {title}
               </h2>
             )}
             {quizOpen ? null : <p className="ml-6 mb-6">{content}</p>}
 
             {!quizOpen && explanationOpen && (
-              <div className="bg-gray-100 p-4 mt-4 rounded mb-2">
+              <div className="bg-gray-100 p-4 mt-4 rounded mb-2 animate-flip-down">
                 <p className="text-lg font-bold text-glacierBlue">
                   {explanation}
                 </p>
+                <button
+                  onClick={handleSetNotesClick}
+                  className="bg-blue-500 text-white px-4 py-2 rounded mt-2 flex items-center transition hover:bg-blue-600"
+                >
+                  <span className="text-lg font-bold">Set as Notes</span>
+                </button>
               </div>
             )}
 
             {quizOpen && (
-              <div className="bg-yellow-200 p-4 mt-4 rounded mb-2">
-                <pre className="text-lg font-bold text-yellow-800">{quiz}</pre>
+              <div className="bg-yellow-200 p-4 mt-4 rounded mb-2 animate-flip-down overflow-scroll">
+                <pre className="text-lg font-bold text-yellow-800 text-wrap">
+                  {quiz}
+                </pre>
               </div>
             )}
 
@@ -181,7 +216,7 @@ const Lesson = ({ title, content, date, postId }) => {
                   className="bg-green-500 text-white px-4 py-2 rounded flex items-center transition hover:bg-green-600"
                 >
                   <span className="text-lg font-bold">
-                    {explanationOpen ? "Hide Explanation" : "Explain"}
+                    {explanationOpen ? "Hide Explanation" : "AI Explaination"}
                   </span>
                 </button>
               </div>
