@@ -1,5 +1,5 @@
 "use server"
-import BottomDivWithForm from "@/components/BottomDivWithForm"
+import BottomDivWithForm from "@/components/AddLesson"
 import Lesson from "@/components/Lesson"
 import { createSupabaseServerClient } from "@/libs/createSupabaseServerClient"
 // import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
@@ -41,7 +41,6 @@ export default async function Feed({ user }) {
           Add something you&apos;re learning.
         </p>
       )}
-      <BottomDivWithForm />
     </div>
   )
 }

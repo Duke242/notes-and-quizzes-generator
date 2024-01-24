@@ -4,6 +4,7 @@ import { deleteLesson } from "@/libs/deleteLesson"
 import { toast } from "react-hot-toast"
 import { MdCancel } from "react-icons/md"
 import { Rings, SpinningCircles } from "react-loading-icons"
+import BottomDivWithForm from "./AddLesson"
 
 const Lesson = ({ title, content, date, postId }) => {
   const [lessonOpen, setLessonOpen] = useState(false)
@@ -130,20 +131,17 @@ const Lesson = ({ title, content, date, postId }) => {
     }, 200)
   }
 
-  let truncatedContent = content.substring(0, 120)
-  let truncatedTitle = title.substring(0, 18)
-
   return (
     <div>
       <div
         onClick={handleLessonClick}
-        className="w-56 h-48 bg-overcast ml-8 p-3 py-6 pb-4 pt-1 relative rounded-md hover:cursor-pointer hover:bg-ice duration-300 transition group hover:drop-shadow-xl clickable-lesson mt-8"
+        className="w-56 h-48 bg-overcast ml-8 p-3 py-6 pb-4 pt-1 relative rounded-md hover:cursor-pointer hover:bg-ice duration-300 transition shadow group hover:drop-shadow-xl clickable-lesson mt-8"
       >
-        <h1 className="text-lg transition group-hover:text-overcast">
-          {truncatedTitle}
+        <h1 className="text-lg transition group-hover:text-overcast overflow-hidden overflow-ellipsis">
+          {title}
         </h1>
-        <p className="text-gray-400 transition-opacity group-hover:text-glacierBlue text-clip">
-          {truncatedContent}
+        <p className="text-gray-400 transition-opacity group-hover:text-glacierBlue text-clip line-clamp-5">
+          {content}
         </p>
         <p className="text-gray-400 absolute text-sm bottom-0 right-0 mr-2">
           {date}
@@ -172,7 +170,9 @@ const Lesson = ({ title, content, date, postId }) => {
                 {title}
               </h2>
             )}
-            {quizOpen ? null : <p className="ml-6 mb-6">{content}</p>}
+            {quizOpen ? null : (
+              <p className="ml-6 mb-6 break-words">{content}</p>
+            )}
 
             {!quizOpen && explanationOpen && (
               <div className="bg-gray-100 p-4 mt-4 rounded mb-2 animate-flip-down">

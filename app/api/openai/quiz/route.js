@@ -15,7 +15,7 @@ export async function POST(req) {
       messages: [
         {
           role: "system",
-          content: `Give me a quiz based on the title and notes, using 3 questions and do not use more than 1500 words. And use short answer questions. Single space the answer. Do not give the answers. Only give the questions.`,
+          content: `You are an excellent teacher. Give me a quiz based on the title and notes, using 3 questions and do not use more than 500 words. And use short answer questions. Single space the answer. Do not give the answers. Do not restate the notes, just give the quiz questions.`,
         },
         {
           role: "user",
