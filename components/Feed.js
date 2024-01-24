@@ -2,9 +2,6 @@
 import BottomDivWithForm from "@/components/AddLesson"
 import Lesson from "@/components/Lesson"
 import { createSupabaseServerClient } from "@/libs/createSupabaseServerClient"
-// import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
-
-// import OpenAI from "openai"
 
 // This is a private page: It's protected by the layout.js component which ensures the user is authenticated.
 // It's a server compoment which means you can fetch data (like the user profile) before the page is rendered.
@@ -22,25 +19,66 @@ export default async function Feed({ user }) {
     console.error("Error fetching user notes:", error.message)
     return null
   }
+
+  const currentDate = new Date()
+
+  const needsReviewNotes = notes.filter((note) => {
+    const noteDate = new Date(note.created_at)
+    const hoursDifference = Math.abs(currentDate - noteDate) / 36e5 // Convert milliseconds to hours
+    const reviewHours = [6, 24, 72, 168]
+    return reviewHours.includes(Math.floor(hoursDifference))
+  })
+
+  const generalNotes = notes.filter((note) => !needsReviewNotes.includes(note))
+
   return (
     <div>
-      {notes.length > 0 ? (
+      {/* <div className="flex items-center ml-16 mt-5"> */}
+      {/* <h5 className="mr-4 text-glacierBlue">Categories:</h5> */}
+      {/* Add your category buttons here */}
+      {/* </div> */}
+      <section>
+        <h2 className="text-2xl font-bold mt-8 ml-16 underline">
+          Needs Review
+        </h2>
+        {needsReviewNotes.length > 0 ? (
+          <main className="flex flex-wrap pr-2 mb-14 ml-10">
+            {needsReviewNotes.map((note) => (
+              <Lesson
+                key={note.id}
+                title={note.title}
+                content={note.content}
+                date={formatDate(note.created_at)}
+                postId={note.id}
+              />
+            ))}
+          </main>
+        ) : (
+          <p className="text-xl ml-16 mt-4 text-warmGray">
+            Nothing needs review at the moment.
+          </p>
+        )}
+      </section>
+      <section>
+        <h2 className="text-2xl font-bold mt-8 ml-16 underline">General</h2>
         <main className="flex flex-wrap pr-2 mb-14 ml-10">
-          {notes.map((note) => (
-            <Lesson
-              key={note.id}
-              title={note.title}
-              content={note.content}
-              date={formatDate(note.created_at)}
-              postId={note.id}
-            />
-          ))}
+          {generalNotes.length > 0 ? (
+            generalNotes.map((note) => (
+              <Lesson
+                key={note.id}
+                title={note.title}
+                content={note.content}
+                date={formatDate(note.created_at)}
+                postId={note.id}
+              />
+            ))
+          ) : (
+            <p className="text-xl ml-6 mt-4 text-warmGray">
+              No lessons to display.
+            </p>
+          )}
         </main>
-      ) : (
-        <p className="text-xl text-center bg-white">
-          Add something you&apos;re learning.
-        </p>
-      )}
+      </section>
     </div>
   )
 }

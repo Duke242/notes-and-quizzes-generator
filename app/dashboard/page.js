@@ -1,5 +1,4 @@
 "use server"
-import ButtonAccount from "@/components/ButtonAccount"
 import DashboardBody from "@/components/DashboardBody"
 import Feed from "@/components/Feed"
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"

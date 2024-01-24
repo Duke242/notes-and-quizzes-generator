@@ -10,7 +10,6 @@ const DashboardBody = ({ user, children }) => {
   return (
     <div
       onClick={function (evt) {
-        console.log(evt.target)
         setShowAdd(
           evt.target.id === "addLessonButton" || !!evt.target.closest("form")
         )
