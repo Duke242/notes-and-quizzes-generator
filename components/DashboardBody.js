@@ -3,9 +3,8 @@
 import { useState } from "react"
 import AddLesson from "./AddLesson"
 import ButtonAccount from "./ButtonAccount"
-import Feed from "./Feed"
 
-const DashboardBody = ({ user, children }) => {
+const DashboardBody = ({ children }) => {
   const [showAdd, setShowAdd] = useState(false)
   return (
     <div
@@ -16,7 +15,7 @@ const DashboardBody = ({ user, children }) => {
       }}
       className="min-h-screen flex flex-col"
     >
-      <header className="bg-white p-8 flex h-1 justify-center items-center shadow-2xl mt-4">
+      <header className="bg-white m-8 mt-8 flex h-1 justify-center items-center shadow-2xl mt-4">
         <div className="rounded-b-md mr-auto">
           <ButtonAccount />
         </div>
