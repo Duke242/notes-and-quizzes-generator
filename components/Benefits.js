@@ -1,6 +1,7 @@
 const Benefits = () => {
   return (
-    <section class="mx-auto w-full h-[50vh] mt-10">
+    <section class="mx-auto w-full h-[50vh]">
+      <h2 className="text-center">Main Benefits</h2>
       <ul class="flex flex-col gap-8 list-none">
         <li class="flex items-center text-2xl">
           <span class="before:inline-block before:w-6 before:h-6 before:mr-2 before:bg-glacierBlue before:border-2 before:border-white"></span>

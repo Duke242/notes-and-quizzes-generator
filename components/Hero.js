@@ -1,3 +1,5 @@
+import VideoComponent from "./VideoComponent"
+
 const Hero = () => {
   return (
     <section className="h-[75vh]">
@@ -7,6 +9,7 @@ const Hero = () => {
       <p className="text-center text-gray-500 mt-4 text-2xl">
         Record important lessons you learn to remember later and memorize.
       </p>
+      <VideoComponent />
     </section>
   )
 }

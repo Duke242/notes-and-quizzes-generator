@@ -7,6 +7,7 @@ import "./styles/page.css"
 import FAQ from "@/components/FAQ"
 import Hero from "@/components/Hero"
 import Benefits from "@/components/Benefits"
+import VideoComponent from "@/components/VideoComponent"
 
 export default function Page() {
   return (
