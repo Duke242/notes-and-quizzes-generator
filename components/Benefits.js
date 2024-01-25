@@ -1,22 +1,31 @@
+import { IoIosCheckmarkCircle } from "react-icons/io"
+
 const Benefits = () => {
   return (
-    <section class="mx-auto w-full h-[50vh]">
-      <h2 className="text-center">Main Benefits</h2>
-      <ul class="flex flex-col gap-8 list-none">
-        <li class="flex items-center text-2xl">
-          <span class="before:inline-block before:w-6 before:h-6 before:mr-2 before:bg-glacierBlue before:border-2 before:border-white"></span>
-          Understand valuable lessons with the assistance of AI and spaced
-          repition.
-        </li>
-        <li class="flex items-center text-2xl">
-          <span class="before:inline-block before:w-6 before:h-6 before:mr-2 before:bg-glacierBlue before:border-2 before:border-white"></span>
-          Enhance everyday understanding with simple AI explanations.
-        </li>
-        <li class="flex items-center text-2xl">
-          <span class="before:inline-block before:w-6 before:h-6 before:mr-2 before:bg-glacierBlue before:border-2 before:border-white"></span>
-          Reinforce knowledge through AI-generated quizzes.
-        </li>
-      </ul>
+    <section class="mx-auto w-full h-fit bg-overcast">
+      <main className="mx-auto w-2/3">
+        <h2 className="text-center text-5xl pt-8 mb-10">Main Benefits</h2>
+        <ul class="flex flex-col gap-8 list-none text-center">
+          <li class="flex items-center text-2xl">
+            <span className="mr-2">
+              <IoIosCheckmarkCircle size={30} color="#1995AD" />
+            </span>
+            Understand lessons with the assistance of AI and spaced repition.
+          </li>
+          <li class="flex items-center text-2xl">
+            <span className="mr-2">
+              <IoIosCheckmarkCircle size={30} color="#1995AD" />
+            </span>
+            Enhance understanding with simple AI explanations.
+          </li>
+          <li class="flex items-center text-2xl">
+            <span className="mr-2">
+              <IoIosCheckmarkCircle size={30} color="#1995AD" />
+            </span>
+            Reinforce knowledge through AI-generated quizzes.
+          </li>
+        </ul>
+      </main>
     </section>
   )
 }

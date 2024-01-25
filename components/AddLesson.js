@@ -11,7 +11,6 @@ const AddLesson = ({ show = false, setShow }) => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault()
-    console.log({ e: evt.target[0].value, evt: evt.target[1].value })
     const payload = {
       title,
       content,

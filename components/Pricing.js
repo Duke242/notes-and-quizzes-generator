@@ -11,9 +11,7 @@ const Pricing = () => {
       <div className="py-24 px-8 max-w-5xl mx-auto">
         <div className="flex flex-col text-center w-full mb-6">
           <p className="font-medium text-glacierBlue">Pricing</p>
-          <h2 className="font-bold text-3xl lg:text-5xl tracking-tight">
-            {/* Save hours of repetitive code and ship faster! */}
-          </h2>
+          <h2 className="font-bold text-3xl lg:text-5xl tracking-tight"></h2>
         </div>
 
         <div className="relative flex justify-center flex-col lg:flex-row items-center lg:items-stretch gap-8">

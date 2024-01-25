@@ -11,21 +11,20 @@ import VideoComponent from "@/components/VideoComponent"
 
 export default function Page() {
   return (
-    <div className="bg-overcast min-h-screen">
+    <div className="bg-overcast min-h-screen flex flex-col w-screen justify-center">
       <Header />
-      <main className="mx-auto w-max min-h-screen">
-        <Hero />
-        {/* <ButtonSignin
-          text="Sign-In"
-          extraStyle={
-            "bg-ice w-fit text-lg hover:text-glacierBlue mx-auto flex justify-center mt-6"
-          }
-        /> */}
+      <main className="mx-auto w-full h-screen bg-overcast">
+        <div className="flex w-full h-3/4">
+          <div className="flex-grow bg-overcast w-1/2">
+            <Hero />
+          </div>
+        </div>
         <Benefits />
-        {/* <Pricing /> */}
+        {/* <VideoComponent /> */}
+        <Pricing />
         <FAQ />
+        <Footer />
       </main>
-      <Footer />
     </div>
   )
 }
