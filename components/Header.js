@@ -9,10 +9,10 @@ import logo from "@/app/icon.png"
 import config from "@/config"
 
 const links = [
-  // {
-  //   href: "/#pricing",
-  //   label: "Pricing",
-  // },
+  {
+    href: "/#pricing",
+    label: "Pricing",
+  },
   // {
   //   href: "/#testimonials",
   //   label: "Reviews",
@@ -52,14 +52,14 @@ const Header = () => {
             title={`${config.appName} hompage`}
           > */}
           {/* <Image
-              src={logo}
-              alt={`${config.appName} logo`}
-              className="w-8"
-              placeholder="blur"
-              priority={true}
-              width={32}
-              height={32}
-            /> */}
+            src={logo}
+            alt={`${config.appName} logo`}
+            className="w-8"
+            placeholder="blur"
+            priority={true}
+            width={32}
+            height={32}
+          /> */}
           <span className="font-extrabold text-2xl text-glacierBlue">
             {config.appName}
           </span>

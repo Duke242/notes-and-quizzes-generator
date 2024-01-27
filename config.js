@@ -5,7 +5,7 @@ const config = {
   appName: "SelfLearner",
   // REQUIRED: a short description of your app for SEO tags (can be overwritten)
   appDescription:
-    "The NextJS boilerplate with all you need to build your SaaS, AI tool, or any other web app.",
+    "Let AI assist you by providing simple notes and quizzes, creating a more organized learning structure for you.",
   // REQUIRED (no https://, not trialing slash at the end, just the naked domain)
   // domainName: "shipfa.st",
   crisp: {
@@ -47,19 +47,14 @@ const config = {
           process.env.NODE_ENV === "development"
             ? "price_1O5KtcAxyNprDp7iftKnrrpw"
             : "price_456",
-        name: "Advanced",
+        name: "Subscription",
         description: "You need more power",
-        price: 99,
-        priceAnchor: 149,
+        price: 10,
+        // priceAnchor: 10,
         features: [
-          {
-            name: "NextJS boilerplate",
-          },
-          { name: "User oauth" },
-          { name: "Database" },
-          { name: "Emails" },
-          { name: "1 year of updates" },
-          { name: "24/7 support" },
+          { name: "Have notes provided to you" },
+          { name: "Take quizzes to test understanding" },
+          { name: "Be reminded to review what your learning" },
         ],
       },
     ],
