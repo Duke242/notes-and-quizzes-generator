@@ -11,6 +11,14 @@ const faqList = [
     answer: (
       <div className="space-y-2 leading-relaxed">
         AI assisting you in learning topics that capture your interest.
+        <br />
+        <a
+          href="http://localhost:3000/video"
+          target="_blank"
+          className="text-blue-500 underline"
+        >
+          Watch a video.
+        </a>
       </div>
     ),
   },

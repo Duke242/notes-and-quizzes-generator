@@ -1,22 +1,24 @@
-"use server"
-import DashboardBody from "@/components/DashboardBody"
-import Feed from "@/components/Feed"
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
-import { cookies } from "next/headers"
+import ButtonAccount from "@/components/ButtonAccount"
+import ButtonCheckout from "@/components/ButtonCheckout"
+import config from "@/config"
 
-// This is a private page: It's protected by the layout.js component which ensures the user is authenticated.
-// It's a server compoment which means you can fetch data (like the user profile) before the page is rendered.
-// See https://shipfa.st/docs/tutorials/private-page
+export const dynamic = "force-dynamic"
+
 export default async function Dashboard() {
-  const supabase = createServerComponentClient({ cookies })
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
-
   return (
-    <DashboardBody>
-      <Feed user={session.user} />
-    </DashboardBody>
+    <main className="min-h-screen p-8 pb-24">
+      <section className="max-w-xl mx-auto space-y-8">
+        <ButtonAccount />
+
+        <h1 className="text-3xl md:text-4xl font-extrabold">
+          Subscribe to get access:
+        </h1>
+
+        <ButtonCheckout
+          mode="subscription"
+          priceId={config.stripe.plans[0].priceId}
+        />
+      </section>
+    </main>
   )
 }

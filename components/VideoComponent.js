@@ -1,5 +1,3 @@
-import React from "react"
-
 const VideoComponent = () => {
   return (
     <div className="w-full h-fit bg-overcast pt-16">
