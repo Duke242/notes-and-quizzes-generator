@@ -13,7 +13,7 @@ const faqList = [
         AI assisting you in learning topics that capture your interest.
         <br />
         <a
-          href="http://localhost:3000/video"
+          href="http://selflearner.today/video"
           target="_blank"
           className="text-blue-500 underline"
         >

@@ -1,29 +1,30 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import config from "@/config";
+import { useState, useEffect } from "react"
+import Link from "next/link"
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import config from "@/config"
 
 // A simple button to sign in with our providers (Google & Magic Links).
 // It automatically redirects user to callbackUrl (config.auth.callbackUrl) after login, which is normally a private page for users to manage their accounts.
 // If the user is already logged in, it will show their profile picture & redirect them to callbackUrl immediately.
 const ButtonSignin = ({ text = "Get started", extraStyle }) => {
-  const supabase = createClientComponentClient();
-  const [user, setUser] = useState(null);
+  const supabase = createClientComponentClient()
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     const getUser = async () => {
-      const { data } = await supabase.auth.getUser();
+      const { data } = await supabase.auth.getUser()
 
-      setUser(data.user);
-    };
+      setUser(data.user)
+    }
 
-    getUser();
-  }, [supabase]);
+    getUser()
+  }, [supabase])
 
   if (user) {
+    console.log("User")
     return (
       <Link
         href={config.auth.callbackUrl}
@@ -45,7 +46,7 @@ const ButtonSignin = ({ text = "Get started", extraStyle }) => {
         )}
         {user?.user_metadata?.name || user?.email || "Account"}
       </Link>
-    );
+    )
   }
 
   return (
@@ -55,7 +56,7 @@ const ButtonSignin = ({ text = "Get started", extraStyle }) => {
     >
       {text}
     </Link>
-  );
-};
+  )
+}
 
-export default ButtonSignin;
+export default ButtonSignin
