@@ -38,9 +38,9 @@ export default async function Feed({ user }) {
       {/* Add your category buttons here */}
       {/* </div> */}
       <section>
-        <h2 className="text-2xl font-bold mt-8 ml-16 underline">
-          Needs Review
-        </h2>
+        <div className="border-b border-gray-400 pb-1 mt-8 ml-16 mr-16 text-gray-500">
+          <h2 className="text-2xl font-normal inline-block">Needs Review</h2>
+        </div>
         {needsReviewNotes.length > 0 ? (
           <main className="flex flex-wrap pr-2 mb-14 ml-10">
             {needsReviewNotes.map((note) => (
@@ -60,7 +60,9 @@ export default async function Feed({ user }) {
         )}
       </section>
       <section>
-        <h2 className="text-2xl font-bold mt-8 ml-16 underline">General</h2>
+        <div className="border-b border-gray-400 pb-1 mt-8 ml-16 mr-16 text-gray-500">
+          <h2 className="text-2xl font-normal inline-block">General</h2>
+        </div>
         <main className="flex flex-wrap pr-2 mb-14 ml-10">
           {generalNotes.length > 0 ? (
             generalNotes.map((note) => (

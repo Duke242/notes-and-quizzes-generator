@@ -14,7 +14,7 @@ const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
 // See more: https://shipfa.st/docs/features/payments
 export async function POST(req) {
   const body = await req.text()
-  console.log({ body })
+  // console.log({ body })
 
   const signature = headers().get("stripe-signature")
 
@@ -96,6 +96,8 @@ export async function POST(req) {
           .update({ has_access: false })
           .eq("customer_id", subscription.customer)
 
+        console.log("DELETED subscription")
+        console.log({ s: subscription.customer })
         break
       }
 
@@ -104,14 +106,13 @@ export async function POST(req) {
         // ✅ Grant access to the product
         const priceId = data.object.lines.data[0].price.id
         const customerId = data.object.customer
-        console.log({ BEFORE: profile })
+
         // Find profile where customer_id equals the customerId (in table called 'profiles')
         const { data: profile } = await supabase
           .from("profiles")
           .select("*")
           .eq("customer_id", customerId)
           .single()
-        console.log({ AFTER: profile })
 
         // Make sure the invoice is for the same plan (priceId) the user subscribed to
         if (profile.price_id !== priceId) break

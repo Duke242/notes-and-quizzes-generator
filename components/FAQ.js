@@ -38,7 +38,7 @@ const faqList = [
     question: "I have another question",
     answer: (
       <div className="space-y-2 leading-relaxed">
-        Cool, contact us by email. <br />
+        Contact us by email. <br />
         <span className="text-gray-400">Email: </span>
         selflearner_support@proton.me
       </div>

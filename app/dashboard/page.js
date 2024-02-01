@@ -23,8 +23,6 @@ export default async function Dashboard() {
 
   const userAccess = profiles[0].has_access
 
-  // console.log(userAccess)
-
   if (userAccess) {
     return (
       <DashboardBody>
