@@ -1,5 +1,3 @@
-import Link from "next/link"
-import ButtonSignin from "@/components/ButtonSignin"
 import Footer from "@/components/Footer"
 import Pricing from "@/components/Pricing"
 import Header from "@/components/Header"
@@ -7,7 +5,6 @@ import "./styles/page.css"
 import FAQ from "@/components/FAQ"
 import Hero from "@/components/Hero"
 import Benefits from "@/components/Benefits"
-import VideoComponent from "@/components/VideoComponent"
 
 export default function Page() {
   return (
@@ -20,7 +17,6 @@ export default function Page() {
           </div>
         </div>
         <Benefits />
-        {/* <VideoComponent /> */}
         <Pricing />
         <FAQ />
         <Footer />
