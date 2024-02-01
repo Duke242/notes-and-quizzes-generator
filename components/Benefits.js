@@ -4,6 +4,7 @@ import { MdQuiz } from "react-icons/md"
 
 const Benefits = () => {
   //
+  //
   return (
     <section className="mx-auto w-full p-4 md:p-8 bg-overcast">
       <main className="mx-auto w-full md:w-2/3">

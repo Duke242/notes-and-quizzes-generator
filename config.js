@@ -43,7 +43,7 @@ const config = {
       {
         // This plan will look different on the pricing page, it will be highlighted. You can only have one plan with isFeatured: true
         isFeatured: false,
-        priceId: "price_1OCojmJey1A5GHJhJ4VLxBvj",
+        priceId: "price_1OdJLjJey1A5GHJhW87tfdoC",
         name: "Subscription",
         description: "You need more power",
         price: 10,
