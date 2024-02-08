@@ -76,13 +76,14 @@ function OneClickTitle() {
       >
         <input
           maxLength={50}
+          minLength={3}
           type="text"
           value={title}
           onChange={(e) => {
             setTitle(e.target.value)
           }}
           placeholder="Please provide a title, and the AI will generate the notes."
-          className="border border-2 rounded-md mb-2 w-2/5 p-3 text-xlg border-ice outline-glacierBlue" // Remove max-width to make it full width
+          className="border border-2 rounded-md mb-2 w-2/5 p-3 text-xlg border-ice outline-glacierBlue"
           required
           id="oneClickForm"
         />
