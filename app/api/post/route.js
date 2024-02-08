@@ -18,8 +18,6 @@ export async function POST(req) {
 
   const payload = await req.json()
 
-  // console.log({ payload })
-
   try {
     const { data, error } = await supabase
       .from("notes")

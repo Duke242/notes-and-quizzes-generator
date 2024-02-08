@@ -1,8 +1,8 @@
 "use client"
-
 import { useState } from "react"
 import AddLesson from "./AddLesson"
 import ButtonAccount from "./ButtonAccount"
+import OneClickTitle from "./OneClickTitle"
 
 const DashboardBody = ({ children }) => {
   const [showAdd, setShowAdd] = useState(false)
@@ -10,6 +10,7 @@ const DashboardBody = ({ children }) => {
   return (
     <div
       onClick={function (evt) {
+        if (evt.target.id === "oneClickSubmit" || "oneClickForm") return
         setShowAdd(
           evt.target.id === "addLessonButton" || !!evt.target.closest("form")
         )
@@ -23,6 +24,7 @@ const DashboardBody = ({ children }) => {
       </header>
 
       <main className="flex-grow bg-white rounded-b-md">
+        <OneClickTitle />
         <h1 className="text-2xl font-bold text-glacierBlue p-8">Learnings</h1>
         <button
           onClick={() => setShowAdd((v) => !v)}
@@ -34,7 +36,7 @@ const DashboardBody = ({ children }) => {
               e.stopPropagation()
               setShowAdd((v) => !v)
             }}
-            className="relative z-10 text-xl"
+            className="relative z-2 text-xl"
           >
             + Lesson
           </span>

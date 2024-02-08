@@ -33,10 +33,6 @@ export default async function Feed({ user }) {
 
   return (
     <div>
-      {/* <div className="flex items-center ml-16 mt-5"> */}
-      {/* <h5 className="mr-4 text-glacierBlue">Categories:</h5> */}
-      {/* Add your category buttons here */}
-      {/* </div> */}
       <section>
         <div className="border-b border-gray-400 pb-1 mt-8 ml-16 mr-16 text-gray-500">
           <h2 className="text-2xl font-normal inline-block">Needs Review</h2>

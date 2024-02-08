@@ -7,7 +7,7 @@ export async function POST(req) {
     })
 
     const payload = await req.json()
-    console.log({ payload })
+    console.log({ AI: payload })
 
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
@@ -25,7 +25,11 @@ export async function POST(req) {
       max_tokens: 256,
       top_p: 1,
     })
-    return NextResponse.json({ response }, { status: 201 })
+    console.log({ AIR: response.choices[0].message.content })
+    return NextResponse.json(
+      { content: response.choices[0].message.content },
+      { status: 201 }
+    )
   } catch (error) {
     console.error("Error fetching explanation:", error)
     NextResponse.json("OpenAIError")

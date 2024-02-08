@@ -64,9 +64,7 @@ const Lesson = ({ title, content, date, postId }) => {
 
       if (response.ok) {
         const data = await response.json()
-        // console.log({ data })
         setExplanation(data.response.choices[0].message.content)
-        // setNotesSet(true)
       } else {
         setExplanation("Error")
         console.error("Failed to fetch quiz")
@@ -76,6 +74,7 @@ const Lesson = ({ title, content, date, postId }) => {
       console.error("Error fetching quiz")
     }
   }
+
   const fetchQuiz = async (title) => {
     setQuiz("Loading...")
 

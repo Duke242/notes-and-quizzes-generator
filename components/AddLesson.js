@@ -40,9 +40,11 @@ const AddLesson = ({ show = false, setShow }) => {
 
         setShow(false)
       } else {
+        console.log("Something")
         toast.error(ret.error)
       }
     } catch (e) {
+      console.log("Something happened")
       toast.error(e.message)
     }
   }
@@ -55,7 +57,6 @@ const AddLesson = ({ show = false, setShow }) => {
     >
       {show && (
         <form onSubmit={handleSubmit} className="flex flex-col">
-          {/* Display title input only for adding a lesson */}
           {show && (
             <input
               type="text"
