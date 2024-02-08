@@ -82,7 +82,7 @@ function OneClickTitle() {
             setTitle(e.target.value)
           }}
           placeholder="Enter title, AI will create the notes"
-          className="border border-2 rounded-md mb-2 w-2/5 p-4 text-xl border-glacierBlue outline-none" // Remove max-width to make it full width
+          className="border border-2 rounded-md mb-2 w-2/5 p-4 text-xl border-ice outline-glacierBlue" // Remove max-width to make it full width
           required
           id="oneClickForm"
         />
