@@ -4,7 +4,6 @@ import { toast } from "react-hot-toast"
 import { MdCancel } from "react-icons/md"
 
 const AddLesson = ({ show = false, setShow }) => {
-  // const [showForm, setShowForm] = useState(show)
   const [showQuiz, setShowQuiz] = useState(false)
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
@@ -15,7 +14,6 @@ const AddLesson = ({ show = false, setShow }) => {
       title,
       content,
     }
-    // console.log({ payload })
     try {
       const response = await fetch("/api/post", {
         method: "POST",
@@ -79,7 +77,7 @@ const AddLesson = ({ show = false, setShow }) => {
           <div className="flex mx-auto gap-8">
             <button
               type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
+              className="bg-glacierBlue text-white px-4 py-2 rounded-md hover:bg-ice transition"
             >
               Submit
             </button>
