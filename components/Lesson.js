@@ -63,15 +63,17 @@ const Lesson = ({ title, content, date, postId }) => {
       })
 
       if (response.ok) {
+        console.log("line 66")
         const data = await response.json()
-        setExplanation(data.response.choices[0].message.content)
+        console.log({ data })
+        setExplanation(data.content)
       } else {
         setExplanation("Error")
-        console.error("Failed to fetch quiz")
+        console.error("Failed to fetch explanation")
       }
     } catch (error) {
       setExplanation("Error")
-      console.error("Error fetching quiz")
+      console.error("Error fetching explanation")
     }
   }
 
@@ -131,30 +133,30 @@ const Lesson = ({ title, content, date, postId }) => {
   }
 
   return (
-    <div>
+    <div className="mr-4 overflow-scroll">
       <div
         onClick={handleLessonClick}
-        className="w-56 h-48 bg-overcast ml-8 p-3 py-6 pb-4 pt-1 relative rounded-md hover:cursor-pointer hover:bg-ice duration-300 transition shadow group hover:drop-shadow-xl clickable-lesson mt-8"
+        className="w-full sm:w-56 h-fit bg-overcast sm:ml-8 p-3 py-6 pb-4 pt-1 relative rounded-md hover:cursor-pointer hover:bg-ice duration-300 transition shadow group hover:drop-shadow-xl clickable-lesson mt-4 sm:mt-8"
       >
-        <h1 className="text-lg transition group-hover:text-overcast overflow-hidden overflow-ellipsis">
-          {title}
-        </h1>
-        <p className="text-gray-400 transition-opacity group-hover:text-glacierBlue text-clip line-clamp-5">
-          {content}
-        </p>
-        <p className="text-gray-400 absolute text-sm bottom-0 right-0 mr-2">
-          {date}
-        </p>
+        <div className="flex flex-col h-full">
+          <h1 className="text-md sm:text-lg transition group-hover:text-overcast overflow-hidden overflow-ellipsis">
+            {title}
+          </h1>
+          <p className="flex-grow text-gray-400 transition-opacity group-hover:text-glacierBlue text-clip line-clamp-3 sm:line-clamp-5">
+            {content}
+          </p>
+          <p className="text-gray-400 text-xs sm:text-sm">{date}</p>
+        </div>
       </div>
 
       {lessonOpen && (
         <div
           onClick={handleCloseClick}
-          className="fixed top-0 left-0 w-full h-full overflow-y-scroll flex pt-24 pb-8 items-center justify-center bg-black bg-opacity-50 z-10"
+          className="fixed top-0 left-0 w-full h-screen overflow-y-scroll flex flex-col items-center justify-center bg-black bg-opacity-50 z-10"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-white p-2 rounded shadow-lg w-3/5 mx-auto relative animate-jump-in animate-delay-0 animate-once animate-duration-300"
+            className="bg-white p-2 rounded shadow-lg w-11/12 sm:w-3/5 mx-auto relative animate-jump-in animate-delay-0 animate-once animate-duration-300"
           >
             <button
               onClick={handleCloseClick}
@@ -165,38 +167,42 @@ const Lesson = ({ title, content, date, postId }) => {
               </span>
             </button>
             {quizOpen ? null : (
-              <h2 className="text-2xl font-bold mt-4 p-6 pt-0 text-glacierBlue">
+              <h2 className="text-xl sm:text-2xl font-bold mt-4 p-4 sm:p-6 pt-0 text-glacierBlue">
                 {title}
               </h2>
             )}
             {quizOpen ? null : (
-              <p className="ml-6 mb-6 break-words">{content}</p>
+              <pre className="m-4 sm:ml-6 sm:mb-6 break-words whitespace-pre-wrap">
+                {content}
+              </pre>
             )}
 
             {!quizOpen && explanationOpen && (
               <div className="bg-gray-100 p-4 mt-4 rounded mb-2 animate-flip-down">
-                <p className="text-lg font-bold text-glacierBlue">
+                <p className="text-md sm:text-lg font-bold text-glacierBlue">
                   {explanation}
                 </p>
                 <button
                   onClick={handleSetNotesClick}
                   className="bg-blue-500 text-white px-4 py-2 rounded mt-2 flex items-center transition hover:bg-blue-600"
                 >
-                  <span className="text-lg font-bold">Set as Notes</span>
+                  <span className="text-md sm:text-lg font-bold">
+                    Set as Notes
+                  </span>
                 </button>
               </div>
             )}
 
             {quizOpen && (
               <div className="bg-yellow-200 p-4 mt-4 rounded mb-2 animate-flip-down overflow-scroll">
-                <pre className="text-lg font-bold text-yellow-800 text-wrap">
+                <pre className="text-md sm:text-lg font-bold text-yellow-800 text-wrap">
                   {quiz}
                 </pre>
               </div>
             )}
 
-            <div className="flex justify-between">
-              <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row justify-between mt-4">
+              <div className="flex gap-2 mb-4 sm:mb-0">
                 <button
                   onClick={handleQuizMeClick}
                   className={`${
@@ -205,7 +211,7 @@ const Lesson = ({ title, content, date, postId }) => {
                     quizOpen ? "hover:bg-yellow-600" : "hover:bg-blue-600"
                   }`}
                 >
-                  <span className="text-lg font-bold">
+                  <span className="text-md sm:text-lg font-bold">
                     {quizOpen ? "Hide Quiz" : "Quiz me"}
                   </span>
                 </button>
@@ -214,8 +220,8 @@ const Lesson = ({ title, content, date, postId }) => {
                   onClick={handleExplainClick}
                   className="bg-green-500 text-white px-4 py-2 rounded flex items-center transition hover:bg-green-600"
                 >
-                  <span className="text-lg font-bold">
-                    {explanationOpen ? "Hide Explanation" : "AI Explaination"}
+                  <span className="text-md sm:text-lg font-bold">
+                    {explanationOpen ? "Hide Explanation" : "AI Explanation"}
                   </span>
                 </button>
               </div>
@@ -224,7 +230,7 @@ const Lesson = ({ title, content, date, postId }) => {
                 onClick={handleDeleteClick}
                 className="bg-red-500 text-white px-4 py-2 rounded flex items-center transition hover:bg-red-600"
               >
-                <span className="text-lg font-bold">Delete</span>
+                <span className="text-md sm:text-lg font-bold">Delete</span>
               </button>
             </div>
           </div>

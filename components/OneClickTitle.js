@@ -66,7 +66,7 @@ function OneClickTitle() {
   }
 
   return (
-    <div className="flex flex-col justify-center w-full ml-16 mt-16">
+    <div className="flex flex-col justify-center w-full mt-16">
       <form
         onSubmit={(e) => {
           e.preventDefault()
@@ -83,7 +83,7 @@ function OneClickTitle() {
             setTitle(e.target.value)
           }}
           placeholder="Please provide a title, and the AI will generate the notes."
-          className="border border-2 rounded-md mb-2 w-2/5 p-3 text-xlg border-ice outline-glacierBlue"
+          className="border border-1 rounded-md shadow mb-2 w-4/5 md:w-2/5 p-3 text-xlg border-ice outline-glacierBlue"
           required
           id="oneClickForm"
         />
