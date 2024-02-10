@@ -29,7 +29,7 @@ const DashboardBody = ({ children }) => {
 
       <main className="flex-grow bg-white rounded-b-md">
         <OneClickTitle />
-        <h1 className="text-2xl font-bold text-glacierBlue p-8">Learnings</h1>
+        <h1 className="text-3xl font-normal text-glacierBlue p-8">Learnings</h1>
         <button
           onClick={() => setShowAdd((v) => !v)}
           id="addLessonButton"

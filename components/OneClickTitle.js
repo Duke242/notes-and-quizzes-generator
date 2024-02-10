@@ -72,7 +72,7 @@ function OneClickTitle() {
           e.preventDefault()
           fetchNotesAndSubmit(title)
         }}
-        className="flex flex-col items-center" // Center align form content horizontally
+        className="flex flex-col items-center"
       >
         <input
           maxLength={50}
@@ -83,7 +83,7 @@ function OneClickTitle() {
             setTitle(e.target.value)
           }}
           placeholder="Please provide a title, and the AI will generate the notes."
-          className="border border-1 rounded-md shadow mb-2 w-4/5 md:w-2/5 p-3 text-xlg border-ice outline-glacierBlue"
+          className="border border-1 rounded-md shadow mb-2 w-4/5 md:w-2/5 p-3 text-xlg border-ice outline-none focus:shadow-md"
           required
           id="oneClickForm"
         />

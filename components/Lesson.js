@@ -133,10 +133,10 @@ const Lesson = ({ title, content, date, postId }) => {
   }
 
   return (
-    <div className="mr-4 overflow-scroll">
+    <div className="mr-4">
       <div
         onClick={handleLessonClick}
-        className="w-full sm:w-56 h-fit bg-overcast sm:ml-8 p-3 py-6 pb-4 pt-1 relative rounded-md hover:cursor-pointer hover:bg-ice duration-300 transition shadow group hover:drop-shadow-xl clickable-lesson mt-4 sm:mt-8"
+        className="w-full sm:w-56 h-fit bg-overcast sm:ml-8 p-3 py-6 pb-4 pt-1 relative rounded-md hover:cursor-pointer hover:bg-ice duration-300 transition shadow group hover:shadow-lg clickable-lesson mt-4 sm:mt-8"
       >
         <div className="flex flex-col h-full">
           <h1 className="text-md sm:text-lg transition group-hover:text-overcast overflow-hidden overflow-ellipsis">
@@ -152,11 +152,11 @@ const Lesson = ({ title, content, date, postId }) => {
       {lessonOpen && (
         <div
           onClick={handleCloseClick}
-          className="fixed top-0 left-0 w-full h-screen overflow-y-scroll flex flex-col items-center justify-center bg-black bg-opacity-50 z-10"
+          className="fixed top-0 left-0 w-full my-auto h-screen flex flex-col items-center justify-center bg-black bg-opacity-50 z-10"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-white p-2 rounded shadow-lg w-11/12 sm:w-3/5 mx-auto relative animate-jump-in animate-delay-0 animate-once animate-duration-300"
+            className="bg-white p-2 rounded shadow-lg w-11/12 sm:w-3/5 overflow-y-scroll mx-auto relative animate-jump-in animate-delay-0 animate-once animate-duration-300"
           >
             <button
               onClick={handleCloseClick}
@@ -167,7 +167,7 @@ const Lesson = ({ title, content, date, postId }) => {
               </span>
             </button>
             {quizOpen ? null : (
-              <h2 className="text-xl sm:text-2xl font-bold mt-4 p-4 sm:p-6 pt-0 text-glacierBlue">
+              <h2 className="text-xl sm:text-2xl font-bold mt-4 p-4  pt-0 text-glacierBlue">
                 {title}
               </h2>
             )}
@@ -184,7 +184,7 @@ const Lesson = ({ title, content, date, postId }) => {
                 </p>
                 <button
                   onClick={handleSetNotesClick}
-                  className="bg-blue-500 text-white px-4 py-2 rounded mt-2 flex items-center transition hover:bg-blue-600"
+                  className="bg-blue-500 text-white px-4 py-2 rounded mt-2 flex items-center transition"
                 >
                   <span className="text-md sm:text-lg font-bold">
                     Set as Notes
