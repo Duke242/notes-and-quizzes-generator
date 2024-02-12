@@ -179,9 +179,9 @@ const Lesson = ({ title, content, date, postId }) => {
 
             {!quizOpen && explanationOpen && (
               <div className="bg-gray-100 p-4 mt-4 rounded mb-2 animate-flip-down">
-                <p className="text-md sm:text-lg font-bold text-glacierBlue">
+                <pre className="text-md sm:text-lg font-bold text-glacierBlue break-words whitespace-pre-wrap">
                   {explanation}
-                </p>
+                </pre>
                 <button
                   onClick={handleSetNotesClick}
                   className="bg-blue-500 text-white px-4 py-2 rounded mt-2 flex items-center transition"
