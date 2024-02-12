@@ -21,30 +21,28 @@ const DashboardBody = ({ children }) => {
       }}
       className="min-h-screen flex flex-col"
     >
-      <header className="bg-white m-8 mt-8 flex h-1 justify-center items-center shadow-2xl mt-4">
-        <div className="rounded-b-md mr-auto">
-          <ButtonAccount />
-        </div>
-      </header>
-
       <main className="flex-grow bg-white rounded-b-md">
         <OneClickTitle />
+        {/* Category selector */}
+        {/* <div className="bg-ice ml-8 border border-glacierBlue rounded-lg p-2 w-fit mt-12"> */}
+        {/* Dropdown menu */}
+        {/* <select className="py-2 px-4 rounded-lg bg-ice text-white focus:outline-none focus:border-transparent"> */}
+        {/* Options */}
+        {/* <option value="all">All Categories</option>
+            <option value="category1">Category 1</option>
+            <option value="category2">Category 2</option> */}
+        {/* Add more options as needed */}
+        {/* </select> */}
+        {/* </div> */}
         <h1 className="text-3xl font-normal text-glacierBlue p-8">Learnings</h1>
         <button
           onClick={() => setShowAdd((v) => !v)}
           id="addLessonButton"
-          className="ml-16 hover:before:bg-ice rounded-full relative h-[50px] w-40 overflow-hidden border border-ice bg-white px-3 text-glacierBlue shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:bg-ice before:transition-all before:duration-500 hover:text-white hover:shadow-ice hover:before:left-0 hover:before:w-full"
+          className={`mx-auto ml-16 bg-glacierBlue text-white px-6 text-base py-2 text-lg rounded hover:bg-opacity-80 focus:bg-opacity-80 focus:outline-none shadow-2xl transition-colors duration-300 `}
         >
-          <span
-            onClick={(e) => {
-              e.stopPropagation()
-              setShowAdd((v) => !v)
-            }}
-            className="relative z-2 text-xl"
-          >
-            + Lesson
-          </span>
+          + Lesson
         </button>
+
         <div className="h-fit pb-1 rounded-lg">{children}</div>
         <AddLesson show={showAdd} setShow={setShowAdd} />
       </main>

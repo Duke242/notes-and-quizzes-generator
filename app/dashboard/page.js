@@ -2,6 +2,7 @@
 import DashboardBody from "@/components/DashboardBody"
 import Feed from "@/components/Feed"
 import Subscribe from "@/components/Subscribe"
+import TopDashboard from "@/components/TopDashboard"
 import config from "@/config"
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 import { cookies } from "next/headers"
@@ -25,9 +26,12 @@ export default async function Dashboard() {
 
   if (userAccess) {
     return (
-      <DashboardBody>
-        <Feed user={session.user} />
-      </DashboardBody>
+      <>
+        <TopDashboard />
+        <DashboardBody>
+          <Feed user={session.user} />
+        </DashboardBody>
+      </>
     )
   } else {
     return <Subscribe />

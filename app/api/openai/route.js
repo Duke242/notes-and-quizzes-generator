@@ -14,16 +14,17 @@ export async function POST(req) {
       messages: [
         {
           role: "system",
-          content: `Explain this topic like I am 5 years old in 100 words.`,
+          content:
+            "You are an excellent teacher at all levels that is the most capable of explaining complex topics simply. Explain this concept in simple terms, {input}. If applicable give an example.",
         },
+
         {
           role: "user",
           content: `${payload.title}`,
         },
       ],
-      temperature: 0.7,
-      max_tokens: 256,
-      top_p: 1,
+      temperature: 0,
+      max_tokens: 3500,
     })
     console.log({ AIR: response.choices[0].message.content })
     return NextResponse.json(
