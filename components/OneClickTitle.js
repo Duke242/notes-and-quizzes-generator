@@ -67,6 +67,9 @@ function OneClickTitle() {
 
   return (
     <div className="flex flex-col justify-center w-full mt-16">
+      <div className="flex justify-center mb-8 md:mb-10 items-center mt-4 text-3xl md:text-4xl text-glacierBlue font-bold">
+        <h1 className="text-center">The best companion for learning.</h1>
+      </div>
       <form
         onSubmit={(e) => {
           e.preventDefault()

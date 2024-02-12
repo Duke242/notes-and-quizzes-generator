@@ -3,9 +3,6 @@ import BottomDivWithForm from "@/components/AddLesson"
 import Lesson from "@/components/Lesson"
 import { createSupabaseServerClient } from "@/libs/createSupabaseServerClient"
 
-// This is a private page: It's protected by the layout.js component which ensures the user is authenticated.
-// It's a server compoment which means you can fetch data (like the user profile) before the page is rendered.
-// See https://shipfa.st/docs/tutorials/private-page
 export default async function Feed({ user }) {
   const supabase = createSupabaseServerClient()
 
@@ -24,7 +21,7 @@ export default async function Feed({ user }) {
 
   const needsReviewNotes = notes.filter((note) => {
     const noteDate = new Date(note.created_at)
-    const hoursDifference = Math.abs(currentDate - noteDate) / 36e5 // Convert milliseconds to hours
+    const hoursDifference = Math.abs(currentDate - noteDate) / 36e5
     const reviewHours = [6, 24, 72, 168]
     return reviewHours.includes(Math.floor(hoursDifference))
   })
@@ -32,13 +29,15 @@ export default async function Feed({ user }) {
   const generalNotes = notes.filter((note) => !needsReviewNotes.includes(note))
 
   return (
-    <div>
-      <section>
-        <div className="border-b border-gray-400 pb-1 mt-8 ml-16 mr-16 text-gray-500">
-          <h2 className="text-2xl font-normal inline-block">Needs Review</h2>
+    <div className="px-4 sm:px-6 lg:px-8">
+      <section className="mt-8">
+        <div className="border-b border-gray-400 pb-1">
+          <h2 className="text-2xl font-normal inline-block text-gray-500">
+            Needs Review
+          </h2>
         </div>
         {needsReviewNotes.length > 0 ? (
-          <main className="flex flex-wrap pr-2 mb-14 ml-10">
+          <main className="flex flex-wrap mb-8">
             {needsReviewNotes.map((note) => (
               <Lesson
                 key={note.id}
@@ -50,16 +49,18 @@ export default async function Feed({ user }) {
             ))}
           </main>
         ) : (
-          <p className="text-xl ml-16 mt-4 text-warmGray">
+          <p className="text-xl mt-4 text-warmGray">
             Nothing needs review at the moment.
           </p>
         )}
       </section>
-      <section>
-        <div className="border-b border-gray-400 pb-1 mt-8 ml-16 mr-16 text-gray-500">
-          <h2 className="text-2xl font-normal inline-block">General</h2>
+      <section className="mt-8">
+        <div className="border-b border-gray-400 pb-1">
+          <h2 className="text-2xl font-normal inline-block text-gray-500">
+            General
+          </h2>
         </div>
-        <main className="flex flex-wrap pr-2 mb-14 ml-10">
+        <main className="flex flex-wrap mb-8">
           {generalNotes.length > 0 ? (
             generalNotes.map((note) => (
               <Lesson
@@ -71,15 +72,14 @@ export default async function Feed({ user }) {
               />
             ))
           ) : (
-            <p className="text-xl ml-6 mt-4 text-warmGray">
-              No lessons to display.
-            </p>
+            <p className="text-xl mt-4 text-warmGray">No lessons to display.</p>
           )}
         </main>
       </section>
     </div>
   )
 }
+
 function formatDate(originalDateString) {
   const dateObject = new Date(originalDateString)
   return dateObject
