@@ -3,7 +3,7 @@ import ButtonAccount from "./ButtonAccount"
 
 function TopDashboard() {
   return (
-    <div className="w-full h-[20vh] bg-gray-200 drop-shadow-xl">
+    <div className="w-full h-[21vh] bg-white overflow-visible">
       <header className="pl-8 pt-12 flex justify-center items-center rounded-b-md">
         <div className="mr-auto">
           <ButtonAccount />
