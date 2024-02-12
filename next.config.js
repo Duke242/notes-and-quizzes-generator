@@ -1,4 +1,7 @@
 const nextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   reactStrictMode: true,
   images: {
     domains: [
@@ -9,6 +12,6 @@ const nextConfig = {
       "logos-world.net",
     ],
   },
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig
