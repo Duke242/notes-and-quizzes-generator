@@ -19,7 +19,7 @@ const VideoComponent = () => {
           <div className="h-full w-full">
             <iframe
               className="w-full h-full"
-              src="https://youtu.be/z7J6PzZWF3s"
+              src="https://www.youtube.com/embed/z7J6PzZWF3s"
               title="YouTube video player"
               allowFullScreen
             />
