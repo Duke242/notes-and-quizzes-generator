@@ -45,7 +45,7 @@ const config = {
         isFeatured: false,
         priceId: "price_1OdJLjJey1A5GHJhW87tfdoC",
         name: "Subscription",
-        description: "You need more power",
+        description: "You need more power.",
         price: 10,
         // priceAnchor: 10,
         features: [

@@ -5,6 +5,7 @@ import "./styles/page.css"
 import FAQ from "@/components/FAQ"
 import Hero from "@/components/Hero"
 import Benefits from "@/components/Benefits"
+import WaysToLearn from "@/components/WaysToLearn"
 
 export default function Page() {
   return (
@@ -17,6 +18,7 @@ export default function Page() {
           </div>
         </div>
         <Benefits />
+        {/* <WaysToLearn /> */}
         <Pricing />
         <FAQ />
         <Footer />

@@ -19,7 +19,7 @@ const Benefits = () => {
           <div className="flex flex-col items-center border-t border-b border-r border-l-0 md:border-l md:border-r-0 border-gray-200 p-4 md:w-1/3">
             <FaClipboardCheck size={80} color="#1995AD" />
             <p className="text-lg text-center mt-2">
-              Enhance understanding with simple AI explanations.
+              Learn concepts with simple explanations to lay a foundation.
             </p>
           </div>
           <div className="flex flex-col items-center border-t border-b border-l-0 md:border-l border-gray-200 p-4 md:w-1/3">
