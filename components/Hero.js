@@ -11,7 +11,7 @@ const Hero = () => {
         easier.
       </h1>
       <p className="text-center text-gray-500 mt-4 md:mt-6 lg:mt-8 text-lg md:text-2xl">
-        Learn Better by Absorbing, Not Forcing.
+        Learn better by absorbing, not forcing.
       </p>
       <div className="w-full text-center mt-6 md:mt-8 lg:mt-10">
         <ButtonSignin
