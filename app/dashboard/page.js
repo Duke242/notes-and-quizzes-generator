@@ -17,12 +17,12 @@ export default async function Dashboard() {
     data: { session },
   } = await supabase.auth.getSession()
 
-  let { data: profiles, error } = await supabase
-    .from("profiles")
+  let { data: stripe, error } = await supabase
+    .from("stripe")
     .select("has_access")
     .eq("id", session.user.id)
 
-  const userAccess = profiles[0].has_access
+  const userAccess = stripe[0].has_access
 
   if (userAccess) {
     return (
