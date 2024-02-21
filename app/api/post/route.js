@@ -23,7 +23,7 @@ export async function POST(req) {
       .from("notes")
       .insert([
         {
-          user_id: session.user.id,
+          creator_id: session.user.id,
           title: payload.title,
           content: payload.content,
         },

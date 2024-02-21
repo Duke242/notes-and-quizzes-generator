@@ -8,7 +8,7 @@ import Benefits from "@/components/Benefits"
 import WaysToLearn from "@/components/WaysToLearn"
 
 export default function Page() {
-  return <h1>Under maintenance</h1>
+  // return <h1>Under maintenance</h1>
   return (
     <div className="bg-overcast min-h-screen flex flex-col w-screen justify-center">
       <Header />

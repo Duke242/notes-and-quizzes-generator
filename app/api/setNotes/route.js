@@ -20,7 +20,7 @@ export async function POST(req) {
       .from("notes")
       .update({ content: payload.explanation })
       .eq("id", payload.postId)
-      .eq("user_id", session.user.id)
+      .eq("creator_id", session.user.id)
       .select()
 
     if (error) {

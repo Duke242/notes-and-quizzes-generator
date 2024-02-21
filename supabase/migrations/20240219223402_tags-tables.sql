@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS tags (
 CREATE TABLE IF NOT EXISTS notes (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   created_at timestamp with time zone DEFAULT now() NOT NULL,
-  creator_id uuid,
+  creator_id uuid DEFAULT auth.uid() NOT NULL,
   title text NOT NULL,
   content text,
   CONSTRAINT notes_creator_id_fkey FOREIGN KEY (creator_id)

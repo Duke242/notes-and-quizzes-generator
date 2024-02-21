@@ -2,6 +2,7 @@
 import BottomDivWithForm from "@/components/AddLesson"
 import Lesson from "@/components/Lesson"
 import { createSupabaseServerClient } from "@/libs/createSupabaseServerClient"
+import { data } from "autoprefixer"
 
 export default async function Feed({ user }) {
   const supabase = createSupabaseServerClient()
@@ -9,7 +10,7 @@ export default async function Feed({ user }) {
   let { data: notes, error } = await supabase
     .from("notes")
     .select("*")
-    .eq("user_id", user?.id)
+    .eq("creator_id", user?.id)
     .order("created_at", { ascending: false })
 
   if (error) {

@@ -1,11 +1,40 @@
 "use client"
-import { useState } from "react"
+import React, { useEffect, useState } from "react"
 import AddLesson from "./AddLesson"
 import ButtonAccount from "./ButtonAccount"
 import OneClickTitle from "./OneClickTitle"
+import { useSupabaseBrowserClient } from "@/libs/createSupabaseBrowserClient"
+import { useCookies } from "react-cookie"
 
 const DashboardBody = ({ children }) => {
   const [showAdd, setShowAdd] = useState(false)
+  const [tags, setTags] = useState([])
+  const [loading, setLoading] = useState(true) // Add loading state
+  const supabase = useSupabaseBrowserClient()
+
+  const submitCreateTag = async (evt) => {
+    evt.preventDefault()
+    await supabase.from("tags").insert({
+      title: evt.currentTarget.title.value,
+    })
+  }
+  useEffect(() => {
+    const load = async () => {
+      try {
+        let { data: tags, error } = await supabase.from("tags").select("*")
+        if (error) {
+          throw error // Throw an error if there's an error response from Supabase
+        }
+        console.log({ tags })
+        setTags(tags)
+        setLoading(false) // Set loading to false when data fetching is complete
+      } catch (error) {
+        console.error("Error fetching data:", error.message)
+        // Handle the error appropriately, such as displaying an error message to the user
+      }
+    }
+    load()
+  }, [])
 
   return (
     <div
@@ -23,17 +52,21 @@ const DashboardBody = ({ children }) => {
     >
       <main className="flex-grow bg-white rounded-b-md">
         <OneClickTitle />
-        {/* Category selector */}
-        <div className="bg-ice ml-8 border border-glacierBlue rounded-lg p-2 w-fit mt-12">
-          {/* Dropdown menu */}
-          <select className="py-2 px-4 rounded-lg bg-ice text-white focus:outline-none focus:border-transparent">
-            {/* Options */}
-            <option value="all">All Categories</option>
-            <option value="category1">Category 1</option>
-            <option value="category2">Category 2</option>
-            {/* Add more options as needed */}
-          </select>
-        </div>
+        <form onSubmit={submitCreateTag}>
+          <input id="title" placeholder="Title" />
+          <button>Create Tag</button>
+        </form>
+        {loading ? ( // Render loading state if data is still being fetched
+          <p>Loading...</p>
+        ) : (
+          <ul className="flex gap-3">
+            {tags.map((tag) => (
+              <li key={tag.id}>
+                <a href={`/dashboard/${tag.title}`}>{tag.title}</a>
+              </li>
+            ))}
+          </ul>
+        )}
         <h1 className="text-3xl font-normal text-glacierBlue p-8">Learnings</h1>
         <button
           onClick={() => setShowAdd((v) => !v)}
