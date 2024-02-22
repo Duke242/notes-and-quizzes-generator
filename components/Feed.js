@@ -4,20 +4,35 @@ import Lesson from "@/components/Lesson"
 import { createSupabaseServerClient } from "@/libs/createSupabaseServerClient"
 import { data } from "autoprefixer"
 
-export default async function Feed({ user }) {
+export default async function Feed({ user, tag }) {
   const supabase = createSupabaseServerClient()
 
-  let { data: notes, error } = await supabase
-    .from("notes")
-    .select("*")
-    .eq("creator_id", user?.id)
-    .order("created_at", { ascending: false })
+  // let query = supabase
+  //   .from("notes")
+  //   .select("*")
+  //   .eq("creator_id", user?.id)
+  //   .order("created_at", { ascending: false })
+
+  let query = supabase
+    .from("tags")
+    .select("*, notes (*)")
+    .eq("notes.creator_id", user?.id)
+
+  if (tag) {
+    console.log({ tag })
+    query = query.eq("title", tag)
+  }
+
+  const { data: tags, error } = await query.order("created_at", {
+    ascending: false,
+  })
 
   if (error) {
     console.error("Error fetching user notes:", error.message)
     return null
   }
-
+  const notes = tags.map(({ notes }) => notes).flat()
+  // console.log({ notes })
   const currentDate = new Date()
 
   const needsReviewNotes = notes.filter((note) => {
@@ -39,7 +54,7 @@ export default async function Feed({ user }) {
         </div>
         {needsReviewNotes.length > 0 ? (
           <main className="flex flex-wrap mb-8">
-            {needsReviewNotes.map((note) => (
+            {needsReviewNotes.map(({ notes: note }) => (
               <Lesson
                 key={note.id}
                 title={note.title}

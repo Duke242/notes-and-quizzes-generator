@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 
-function OneClickTitle() {
+function OneClickTitle({ tag }) {
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
   const [isLoading, setIsLoading] = useState(false) // State variable to track loading status
@@ -19,7 +19,7 @@ function OneClickTitle() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ title, content }),
+        body: JSON.stringify({ title, content, tag }),
       })
       const ret = await response.json()
       if (ret.success) {

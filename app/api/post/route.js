@@ -19,7 +19,7 @@ export async function POST(req) {
   const payload = await req.json()
 
   try {
-    const { data, error } = await supabase
+    const { data: note, error } = await supabase
       .from("notes")
       .insert([
         {
@@ -29,6 +29,16 @@ export async function POST(req) {
         },
       ])
       .select()
+      .single()
+
+    const { data: tag } = await supabase
+      .from("tags")
+      .select("id")
+      .eq("title", payload.tag)
+      .single()
+    await supabase
+      .from("notes_tags")
+      .insert({ tag_id: tag.id, note_id: note.id })
     revalidatePath("/dashboard")
 
     if (error) {

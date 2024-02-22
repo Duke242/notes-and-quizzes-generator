@@ -17,6 +17,8 @@ export default async function Dashboard() {
     data: { session },
   } = await supabase.auth.getSession()
 
+  // console.log({ session })
+
   let { data: stripe, error } = await supabase
     .from("stripe")
     .select("has_access")
@@ -28,7 +30,7 @@ export default async function Dashboard() {
     return (
       <>
         <TopDashboard />
-        <DashboardBody>
+        <DashboardBody user={session.user}>
           <Feed user={session.user} />
         </DashboardBody>
       </>

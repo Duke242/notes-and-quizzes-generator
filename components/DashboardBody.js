@@ -1,31 +1,42 @@
 "use client"
 import React, { useEffect, useState } from "react"
 import AddLesson from "./AddLesson"
-import ButtonAccount from "./ButtonAccount"
 import OneClickTitle from "./OneClickTitle"
 import { useSupabaseBrowserClient } from "@/libs/createSupabaseBrowserClient"
 import { useCookies } from "react-cookie"
+import toast from "react-hot-toast"
 
-const DashboardBody = ({ children }) => {
+const DashboardBody = ({ children, tag, user }) => {
   const [showAdd, setShowAdd] = useState(false)
   const [tags, setTags] = useState([])
-  const [loading, setLoading] = useState(true) // Add loading state
+  const [loading, setLoading] = useState(true)
   const supabase = useSupabaseBrowserClient()
+  console.log({ user })
 
   const submitCreateTag = async (evt) => {
     evt.preventDefault()
-    await supabase.from("tags").insert({
-      title: evt.currentTarget.title.value,
-    })
+    try {
+      await supabase.from("tags").insert({
+        title: evt.target.title.value,
+      })
+      toast.success("Tag created successfully!")
+      evt.target.title.value = ""
+    } catch (error) {
+      console.error("Error creating tag:", error.message)
+      toast.error("Failed to create tag. Please try again.")
+    }
   }
+
   useEffect(() => {
     const load = async () => {
       try {
-        let { data: tags, error } = await supabase.from("tags").select("*")
+        let { data: tags, error } = await supabase
+          .from("tags")
+          .select("*")
+          .eq("creator_id", user.id)
         if (error) {
           throw error // Throw an error if there's an error response from Supabase
         }
-        console.log({ tags })
         setTags(tags)
         setLoading(false) // Set loading to false when data fetching is complete
       } catch (error) {
@@ -39,7 +50,6 @@ const DashboardBody = ({ children }) => {
   return (
     <div
       onClick={function (evt) {
-        console.log({ id: evt.target.id })
         if (evt.target.id === "main") {
           setShowAdd(false)
         }
@@ -51,22 +61,29 @@ const DashboardBody = ({ children }) => {
       className="min-h-screen flex flex-col"
     >
       <main className="flex-grow bg-white rounded-b-md">
-        <OneClickTitle />
+        <OneClickTitle {...{ tag }} />
         <form onSubmit={submitCreateTag}>
           <input id="title" placeholder="Title" />
           <button>Create Tag</button>
         </form>
-        {loading ? ( // Render loading state if data is still being fetched
+        {loading ? (
           <p>Loading...</p>
         ) : (
-          <ul className="flex gap-3">
-            {tags.map((tag) => (
-              <li key={tag.id}>
-                <a href={`/dashboard/${tag.title}`}>{tag.title}</a>
-              </li>
-            ))}
-          </ul>
+          <>
+            {tags.length === 0 ? (
+              <p>No tags found.</p>
+            ) : (
+              <ul className="flex gap-3">
+                {tags.map((tag) => (
+                  <li key={tag.id}>
+                    <a href={`/dashboard/${tag.title}`}>{tag.title}</a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </>
         )}
+
         <h1 className="text-3xl font-normal text-glacierBlue p-8">Learnings</h1>
         <button
           onClick={() => setShowAdd((v) => !v)}
