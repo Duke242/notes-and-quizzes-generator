@@ -142,10 +142,10 @@ const Lesson = ({ title, content, date, postId }) => {
           <h1 className="text-md sm:text-lg transition group-hover:text-overcast overflow-hidden overflow-ellipsis">
             {title}
           </h1>
-          <p className="flex-grow text-gray-400 transition-opacity group-hover:text-glacierBlue text-clip line-clamp-3 sm:line-clamp-5">
+          <p className="flex-grow text-gray-500 transition-opacity group-hover:text-glacierBlue text-clip line-clamp-3 sm:line-clamp-5">
             {content}
           </p>
-          <p className="text-gray-400 text-xs sm:text-sm">{date}</p>
+          <p className="text-gray-400 text-xs ml-auto sm:text-sm">{date}</p>
         </div>
       </div>
 

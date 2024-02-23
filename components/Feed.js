@@ -57,7 +57,7 @@ export default async function Feed({ user, tag }) {
         </div>
         {needsReviewNotes.length > 0 ? (
           <main className="flex flex-wrap mb-8">
-            {needsReviewNotes.map(({ notes: note }) => (
+            {needsReviewNotes.map((note) => (
               <Lesson
                 key={note.id}
                 title={note.title}
