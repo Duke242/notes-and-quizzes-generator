@@ -4,21 +4,35 @@ import AddLesson from "./AddLesson"
 import OneClickTitle from "./OneClickTitle"
 import { useSupabaseBrowserClient } from "@/libs/createSupabaseBrowserClient"
 import toast from "react-hot-toast"
+import { revalidatePath } from "next/cache"
 
 const DashboardBody = ({ children, tag, user }) => {
   const [showAdd, setShowAdd] = useState(false)
   const [tags, setTags] = useState([])
   const [loading, setLoading] = useState(true)
-  const supabase = useSupabaseBrowserClient()
+  // const supabase = useSupabaseBrowserClient()
 
   const submitCreateTag = async (evt) => {
     evt.preventDefault()
+
+    const title = evt.target.title.value
+    console.log({ 19: title })
     try {
-      await supabase.from("tags").insert({
-        title: evt.target.title.value,
+      const response = await fetch("/api/createTag", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title }),
       })
+
+      if (!response.ok) {
+        throw new Error("Failed to create tag")
+      }
+
       toast.success("Tag created successfully!")
       evt.target.title.value = ""
+      // revalidatePath("/dashboard")
     } catch (error) {
       console.error("Error creating tag:", error.message)
       toast.error("Failed to create tag. Please try again.")
@@ -26,23 +40,25 @@ const DashboardBody = ({ children, tag, user }) => {
   }
 
   useEffect(() => {
-    const load = async () => {
+    const fetchTags = async () => {
       try {
-        let { data: tags, error } = await supabase
-          .from("tags")
-          .select("*")
-          .eq("creator_id", user.id)
-        if (error) {
-          throw error
+        const response = await fetch(`/api/getTags`)
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch tags")
         }
-        setTags(tags)
+
+        const { data } = await response.json()
+        setTags(data)
         setLoading(false)
       } catch (error) {
-        console.error("Error fetching data:", error.message)
+        console.error("Error fetching tags:", error.message)
+        // Handle error state or display a toast message
       }
     }
-    load()
-  }, [])
+
+    fetchTags()
+  }, [user.id])
 
   return (
     <div
@@ -60,7 +76,7 @@ const DashboardBody = ({ children, tag, user }) => {
       <main className="flex-grow bg-white rounded-b-md">
         <OneClickTitle {...{ tag }} />
         <form onSubmit={submitCreateTag}>
-          <input id="title" placeholder="Title" />
+          <input id="title" placeholder="Title" required />
           <button>Create Tag</button>
         </form>
         {loading ? (

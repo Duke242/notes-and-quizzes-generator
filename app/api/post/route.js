@@ -14,7 +14,7 @@ export async function POST(req) {
     data: { session },
   } = await supabaseSession.auth.getSession()
 
-  console.log({ a: session.user.id })
+  // console.log({ a: session.user.id })
 
   const payload = await req.json()
 
