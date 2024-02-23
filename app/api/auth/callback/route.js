@@ -12,12 +12,7 @@ export async function GET(req) {
 
   if (code) {
     const supabase = createRouteHandlerClient({ cookies })
-    const {
-      data: {
-        session: { access_token },
-      },
-    } = await supabase.auth.exchangeCodeForSession(code)
-    cookies().set("supabase_user_jwt", access_token)
+    await supabase.auth.exchangeCodeForSession(code)
   }
 
   // URL to redirect to after sign in process completes
