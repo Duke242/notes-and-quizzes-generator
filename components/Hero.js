@@ -15,7 +15,7 @@ const Hero = () => {
       <div className="w-full text-center mt-6 md:mt-8 lg:mt-10">
         <ButtonSignin
           text="Get Started"
-          extraStyle="mx-auto w-fit bg-glacierBlue text-overcast p-4 h-fit text-2 hover:text-glacierBlue"
+          extraStyle="mx-auto w-fit bg-glacierBlue text-overcast p-4 h-fit text-xl hover:text-glacierBlue shadow"
         />
       </div>
     </section>

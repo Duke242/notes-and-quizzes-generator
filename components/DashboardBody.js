@@ -10,34 +10,7 @@ const DashboardBody = ({ children, tag, user }) => {
   const [showAdd, setShowAdd] = useState(false)
   const [tags, setTags] = useState([])
   const [loading, setLoading] = useState(true)
-  // const supabase = useSupabaseBrowserClient()
-
-  const submitCreateTag = async (evt) => {
-    evt.preventDefault()
-
-    const title = evt.target.title.value
-    console.log({ 19: title })
-    try {
-      const response = await fetch("/api/createTag", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ title }),
-      })
-
-      if (!response.ok) {
-        throw new Error("Failed to create tag")
-      }
-
-      toast.success("Tag created successfully!")
-      evt.target.title.value = ""
-      // revalidatePath("/dashboard")
-    } catch (error) {
-      console.error("Error creating tag:", error.message)
-      toast.error("Failed to create tag. Please try again.")
-    }
-  }
+  const [shouldFetchTags, setShouldFetchTags] = useState(true) // State variable to trigger effect
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -53,12 +26,41 @@ const DashboardBody = ({ children, tag, user }) => {
         setLoading(false)
       } catch (error) {
         console.error("Error fetching tags:", error.message)
-        // Handle error state or display a toast message
       }
     }
 
-    fetchTags()
-  }, [user.id])
+    if (shouldFetchTags) {
+      fetchTags()
+      setShouldFetchTags(false)
+    }
+  }, [shouldFetchTags])
+
+  const submitCreateTag = async (evt) => {
+    evt.preventDefault()
+
+    const title = evt.target.title.value
+
+    try {
+      const response = await fetch("/api/createTag", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title }),
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to create tag")
+      }
+
+      toast.success("Tag created successfully!")
+      evt.target.title.value = ""
+      setShouldFetchTags(true) // Set shouldFetchTags to true to trigger the effect
+    } catch (error) {
+      console.error("Error creating tag:", error.message)
+      toast.error("Failed to create tag. Please try again.")
+    }
+  }
 
   return (
     <div
