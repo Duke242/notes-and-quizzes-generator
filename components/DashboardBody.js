@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react"
 import AddLesson from "./AddLesson"
 import OneClickTitle from "./OneClickTitle"
 import { useSupabaseBrowserClient } from "@/libs/createSupabaseBrowserClient"
-import { useCookies } from "react-cookie"
 import toast from "react-hot-toast"
 
 const DashboardBody = ({ children, tag, user }) => {
@@ -11,7 +10,6 @@ const DashboardBody = ({ children, tag, user }) => {
   const [tags, setTags] = useState([])
   const [loading, setLoading] = useState(true)
   const supabase = useSupabaseBrowserClient()
-  console.log({ user })
 
   const submitCreateTag = async (evt) => {
     evt.preventDefault()
@@ -35,13 +33,12 @@ const DashboardBody = ({ children, tag, user }) => {
           .select("*")
           .eq("creator_id", user.id)
         if (error) {
-          throw error // Throw an error if there's an error response from Supabase
+          throw error
         }
         setTags(tags)
-        setLoading(false) // Set loading to false when data fetching is complete
+        setLoading(false)
       } catch (error) {
         console.error("Error fetching data:", error.message)
-        // Handle the error appropriately, such as displaying an error message to the user
       }
     }
     load()

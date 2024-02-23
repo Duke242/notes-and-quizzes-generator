@@ -30,15 +30,18 @@ export async function POST(req) {
       ])
       .select()
       .single()
+    let tag_id = null // Default tag_id to null
+    if (payload.tag) {
+      const { data: tag } = await supabase
+        .from("tags")
+        .select("id")
+        .eq("title", payload.tag)
+        .single()
+      tag_id = tag ? tag.id : null // If tag is found, use its id, otherwise set to null
+    }
 
-    const { data: tag } = await supabase
-      .from("tags")
-      .select("id")
-      .eq("title", payload.tag)
-      .single()
-    await supabase
-      .from("notes_tags")
-      .insert({ tag_id: tag.id, note_id: note.id })
+    await supabase.from("notes_tags").insert({ tag_id, note_id: note.id })
+
     revalidatePath("/dashboard")
 
     if (error) {

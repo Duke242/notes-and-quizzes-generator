@@ -26,7 +26,7 @@ export async function POST(req) {
       temperature: 0,
       max_tokens: 3500,
     })
-    console.log({ AIR: response.choices[0].message.content })
+
     return NextResponse.json(
       { content: response.choices[0].message.content },
       { status: 201 }

@@ -2,39 +2,42 @@
 import BottomDivWithForm from "@/components/AddLesson"
 import Lesson from "@/components/Lesson"
 import { createSupabaseServerClient } from "@/libs/createSupabaseServerClient"
-import { data } from "autoprefixer"
 
 export default async function Feed({ user, tag }) {
   const supabase = createSupabaseServerClient()
+  let tags = [] // Initialize tags outside try-catch block
 
-  // let query = supabase
-  //   .from("notes")
-  //   .select("*")
-  //   .eq("creator_id", user?.id)
-  //   .order("created_at", { ascending: false })
+  try {
+    let query
+    if (tag) {
+      query = supabase
+        .from("tags")
+        .select("*, notes (*)")
+        .eq("notes.creator_id", user?.id)
+        .eq("title", tag)
+        .order("created_at", {
+          ascending: false,
+        })
+    } else {
+      query = supabase.from("notes").select("*").eq("creator_id", user?.id)
+    }
 
-  let query = supabase
-    .from("tags")
-    .select("*, notes (*)")
-    .eq("notes.creator_id", user?.id)
+    const { data, error } = await query // Rename tags to data
 
-  if (tag) {
-    console.log({ tag })
-    query = query.eq("title", tag)
-  }
+    if (error) {
+      throw new Error("Error fetching user notes: " + error.message)
+    }
 
-  const { data: tags, error } = await query.order("created_at", {
-    ascending: false,
-  })
-
-  if (error) {
-    console.error("Error fetching user notes:", error.message)
+    tags = data // Assign fetched data to tags
+  } catch (error) {
+    console.error(error.message)
     return null
   }
-  const notes = tags.map(({ notes }) => notes).flat()
-  // console.log({ notes })
-  const currentDate = new Date()
 
+  const notes = tag ? tags.map(({ notes }) => notes).flat() : tags
+
+  const currentDate = new Date()
+  // console.log({ notes })
   const needsReviewNotes = notes.filter((note) => {
     const noteDate = new Date(note.created_at)
     const hoursDifference = Math.abs(currentDate - noteDate) / 36e5
