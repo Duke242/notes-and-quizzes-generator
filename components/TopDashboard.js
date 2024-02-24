@@ -4,7 +4,7 @@ import ButtonAccount from "./ButtonAccount"
 function TopDashboard() {
   return (
     <div className="w-full bg-white overflow-visible">
-      <header className="pl-8 pt-12 flex justify-center items-center rounded-b-md">
+      <header className="pl-8 pt-4 flex justify-center items-center rounded-b-md">
         <div className="mr-auto">
           <ButtonAccount />
         </div>

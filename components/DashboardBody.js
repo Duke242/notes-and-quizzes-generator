@@ -75,7 +75,7 @@ const DashboardBody = ({ children, tag, user }) => {
       }}
       className="min-h-screen flex flex-col"
     >
-      <main className="flex-grow bg-white rounded-b-md">
+      <main className="flex-grow bg-white mt-0 rounded-b-md">
         <OneClickTitle {...{ tag }} />
         <a
           href="/dashboard"
