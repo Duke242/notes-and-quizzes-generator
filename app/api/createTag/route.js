@@ -6,18 +6,18 @@ import { revalidatePath } from "next/cache"
 
 export async function POST(req) {
   const supabase = createSupabaseServerClient()
-  const supabaseSession = createServerComponentClient({ cookies })
+  // const supabaseSession = createServerComponentClient({ cookies })
 
-  const {
-    data: { session },
-  } = await supabaseSession.auth.getSession()
+  // const {
+  //   data: { session },
+  // } = await supabaseSession.auth.getSession()
 
   try {
-    const { title } = await req.json()
+    const { payload } = await req.json()
 
     const { data, error } = await supabase
       .from("tags")
-      .insert({ title, creator_id: session.user.id })
+      .insert({ title: payload.title, creator_id: payload.user.id })
       .select()
       .single()
 

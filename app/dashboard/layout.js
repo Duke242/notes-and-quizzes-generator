@@ -10,14 +10,11 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 // See https://shipfa.st/docs/tutorials/private-page
 export default async function LayoutPrivate({ children }) {
   const supabase = createServerComponentClient({ cookies })
-
   const {
     data: { session },
   } = await supabase.auth.getSession()
-
   if (!session) {
     redirect(config.auth.loginUrl)
   }
-
   return <>{children}</>
 }

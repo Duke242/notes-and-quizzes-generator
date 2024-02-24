@@ -23,9 +23,20 @@ body {
   transition: transform 0.3s ease-in-out;
 }
 
-/* It makes the HTML progress bar filling smooth when value change. */
-progress::-webkit-progress-value {
-  transition: 0.6s width ease-out;
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 @layer base {

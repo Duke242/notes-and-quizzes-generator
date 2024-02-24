@@ -8,37 +8,80 @@ import { revalidatePath } from "next/cache"
 
 const DashboardBody = ({ children, tag, user }) => {
   const [showAdd, setShowAdd] = useState(false)
-  const [tags, setTags] = useState([])
+  // const [tags, setTags] = useState([])
+  // const [loading, setLoading] = useState(true)
+  // const [shouldFetchTags, setShouldFetchTags] = useState(true) // State variable to trigger effect
+
+  // const [tags, setTags] = useState(() => {
+  //   const cachedTags = localStorage.getItem("cachedTags")
+  //   return cachedTags ? JSON.parse(cachedTags) : []
+  // })
   const [loading, setLoading] = useState(true)
-  const [shouldFetchTags, setShouldFetchTags] = useState(true) // State variable to trigger effect
 
-  useEffect(() => {
-    const fetchTags = async () => {
-      try {
-        const response = await fetch(`/api/getTags`)
+  // useEffect(() => {
+  //   const fetchTags = async () => {
+  //     try {
+  //       const response = await fetch(`/api/getTags`, {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({ userId: user.id }),
+  //       })
+  //       if (!response.ok) {
+  //         throw new Error("Failed to fetch tags")
+  //       }
+  //       const { data } = await response.json()
+  //       if (data.length === 0) {
+  //         setNoTagsAvailable(true)
+  //       } else {
+  //         console.log("Tags available")
+  //         setTags(data)
+  //         setLoading(false)
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching tags:", error.message)
+  //       setLoading(false)
+  //     }
+  //   }
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch tags")
-        }
+  //   if (tags.length === 0 && !noTagsAvailable) {
+  //     fetchTags()
+  //   } else {
+  //     console.log("Tags are cached")
+  //     setLoading(false)
+  //   }
+  // }, [])
 
-        const { data } = await response.json()
-        setTags(data)
-        setLoading(false)
-      } catch (error) {
-        console.error("Error fetching tags:", error.message)
-      }
-    }
+  // const fetchTags = async () => {
+  //   try {
+  //     const response = await fetch(`/api/getTags`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ userId: user.id }),
+  //     })
 
-    if (shouldFetchTags) {
-      fetchTags()
-      setShouldFetchTags(false)
-    }
-  }, [shouldFetchTags])
+  //     if (!response.ok) {
+  //       throw new Error("Failed to fetch tags")
+  //     }
+
+  //     const { data } = await response.json()
+  //     setTags(data)
+
+  //     localStorage.setItem("cachedTags", JSON.stringify(data))
+
+  //     setLoading(false)
+  //   } catch (error) {
+  //     console.error("Error fetching tags:", error.message)
+  //   }
+  // }
 
   const submitCreateTag = async (evt) => {
     evt.preventDefault()
 
-    const title = evt.target.title.value
+    const payload = { title: evt.target.title.value, userId: user.id }
 
     try {
       const response = await fetch("/api/createTag", {
@@ -46,7 +89,7 @@ const DashboardBody = ({ children, tag, user }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ title }),
+        body: JSON.stringify(payload),
       })
 
       if (!response.ok) {
@@ -55,7 +98,8 @@ const DashboardBody = ({ children, tag, user }) => {
 
       toast.success("Tag created successfully!")
       evt.target.title.value = ""
-      setShouldFetchTags(true) // Set shouldFetchTags to true to trigger the effect
+
+      fetchTags()
     } catch (error) {
       console.error("Error creating tag:", error.message)
       toast.error("Failed to create tag. Please try again.")
@@ -77,7 +121,7 @@ const DashboardBody = ({ children, tag, user }) => {
     >
       <main className="flex-grow bg-white mt-0 rounded-b-md">
         <OneClickTitle {...{ tag }} />
-        {location.pathname.startsWith("/dashboard/") &&
+        {/* {location.pathname.startsWith("/dashboard/") &&
           location.pathname !== "/dashboard" && (
             <a
               href="/dashboard"
@@ -85,11 +129,12 @@ const DashboardBody = ({ children, tag, user }) => {
             >
               All Tags
             </a>
-          )}
+          )} */}
         <div className="ml-12 mt-4">
           <input
             id="title"
             placeholder="New Tag"
+            onSubmit={submitCreateTag}
             required
             className="border border-gray-300 rounded-md mb-6 mt-2 px-4 py-2 mr-2 focus:outline-none focus:border-blue-500 flex-grow"
           />
@@ -104,7 +149,7 @@ const DashboardBody = ({ children, tag, user }) => {
             {tags.length === 0 ? (
               <p>No tags found.</p>
             ) : (
-              <ul className="flex gap-3 ml-12">
+              <ul className="flex gap-3 ml-12 overflow-x-scroll overflow-y-hidden no-scrollbar">
                 {tags.map((tag) => (
                   <li key={tag.id}>
                     <a

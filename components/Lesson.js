@@ -133,7 +133,7 @@ const Lesson = ({ title, content, date, postId }) => {
   }
 
   return (
-    <div className="mr-4">
+    <div className="mr-2">
       <div
         onClick={handleLessonClick}
         className="w-full sm:w-56 h-fit bg-overcast sm:ml-8 p-3 py-6 pb-4 pt-1 relative rounded-md hover:cursor-pointer hover:bg-ice duration-300 transition shadow group hover:shadow-lg clickable-lesson mt-4 sm:mt-8"
