@@ -17,7 +17,6 @@ export default async function TaggedDashedboard({ params }) {
     <>
       <TopDashboard />
       <DashboardBody {...{ tag }} user={session.user}>
-        <a href="/dashboard">Home</a>
         <Feed user={session.user} {...{ tag }} />
       </DashboardBody>
     </>

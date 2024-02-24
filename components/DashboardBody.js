@@ -77,28 +77,53 @@ const DashboardBody = ({ children, tag, user }) => {
     >
       <main className="flex-grow bg-white rounded-b-md">
         <OneClickTitle {...{ tag }} />
-        <form onSubmit={submitCreateTag}>
-          <input id="title" placeholder="Title" required />
-          <button>Create Tag</button>
-        </form>
+        <a
+          href="/dashboard"
+          className="bg-overcast text-glacierBlue px-4 py-2 ml-12 mt-6 rounded-md border border-glacierBlue hover:bg-glacierBlue hover:border-transparent hover:text-overcast transition-colors duration-300"
+        >
+          All Tags
+        </a>
+        <div className="ml-12 mt-4">
+          <input
+            id="title"
+            placeholder="New Tag"
+            required
+            className="border border-gray-300 rounded-md mb-6 mt-2 px-4 py-2 mr-2 focus:outline-none focus:border-blue-500 flex-grow"
+          />
+          <button className="bg-overcast text-glacierBlue px-4 py-2 rounded-md hover:bg-glacierBlue focus:outline-none focus:bg-blue-600 hover:text-overcast transition-colors duration-300">
+            Create Tag
+          </button>
+        </div>
         {loading ? (
-          <p>Loading...</p>
+          <p className="text-glacierBlue ml-12">Loading...</p>
         ) : (
           <>
             {tags.length === 0 ? (
               <p>No tags found.</p>
             ) : (
-              <ul className="flex gap-3">
+              <ul className="flex gap-3 ml-12">
                 {tags.map((tag) => (
                   <li key={tag.id}>
-                    <a href={`/dashboard/${tag.title}`}>{tag.title}</a>
+                    <a
+                      href={
+                        location.pathname === `/dashboard/${tag.title}`
+                          ? null
+                          : `/dashboard/${tag.title}`
+                      }
+                      className={`px-3 py-1 rounded-md ${
+                        location.pathname === `/dashboard/${tag.title}`
+                          ? "text-overcast font-semibold bg-glacierBlue"
+                          : "hover:bg-glacierBlue hover:text-overcast bg-overcast text-glacierBlue"
+                      } transition-colors duration-300`}
+                    >
+                      {tag.title}
+                    </a>
                   </li>
                 ))}
               </ul>
             )}
           </>
         )}
-
         <h1 className="text-3xl font-normal text-glacierBlue p-8">Learnings</h1>
         <button
           onClick={() => setShowAdd((v) => !v)}
