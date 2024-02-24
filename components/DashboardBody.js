@@ -77,12 +77,15 @@ const DashboardBody = ({ children, tag, user }) => {
     >
       <main className="flex-grow bg-white mt-0 rounded-b-md">
         <OneClickTitle {...{ tag }} />
-        <a
-          href="/dashboard"
-          className="bg-overcast text-glacierBlue px-4 py-2 ml-12 mt-6 rounded-md border border-glacierBlue hover:bg-glacierBlue hover:border-transparent hover:text-overcast transition-colors duration-300"
-        >
-          All Tags
-        </a>
+        {location.pathname.startsWith("/dashboard/") &&
+          location.pathname !== "/dashboard" && (
+            <a
+              href="/dashboard"
+              className="bg-overcast text-glacierBlue px-4 py-2 ml-12 rounded-md border border-glacierBlue hover:bg-glacierBlue hover:border-transparent hover:text-overcast transition-colors duration-300"
+            >
+              All Tags
+            </a>
+          )}
         <div className="ml-12 mt-4">
           <input
             id="title"
