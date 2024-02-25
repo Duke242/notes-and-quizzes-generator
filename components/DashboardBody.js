@@ -2,81 +2,58 @@
 import React, { useEffect, useState } from "react"
 import AddLesson from "./AddLesson"
 import OneClickTitle from "./OneClickTitle"
-import { useSupabaseBrowserClient } from "@/libs/createSupabaseBrowserClient"
 import toast from "react-hot-toast"
-import { revalidatePath } from "next/cache"
 
 const DashboardBody = ({ children, tag, user }) => {
   const [showAdd, setShowAdd] = useState(false)
-  // const [tags, setTags] = useState([])
-  // const [loading, setLoading] = useState(true)
-  // const [shouldFetchTags, setShouldFetchTags] = useState(true) // State variable to trigger effect
-
-  // const [tags, setTags] = useState(() => {
-  //   const cachedTags = localStorage.getItem("cachedTags")
-  //   return cachedTags ? JSON.parse(cachedTags) : []
-  // })
+  const [tags, setTags] = useState([])
   const [loading, setLoading] = useState(true)
+  const [noTagsAvailable, setNoTagsAvailable] = useState(false)
+  const [folderToDelete, setFolderToDelete] = useState(null)
 
-  // useEffect(() => {
-  //   const fetchTags = async () => {
-  //     try {
-  //       const response = await fetch(`/api/getTags`, {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({ userId: user.id }),
-  //       })
-  //       if (!response.ok) {
-  //         throw new Error("Failed to fetch tags")
-  //       }
-  //       const { data } = await response.json()
-  //       if (data.length === 0) {
-  //         setNoTagsAvailable(true)
-  //       } else {
-  //         console.log("Tags available")
-  //         setTags(data)
-  //         setLoading(false)
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching tags:", error.message)
-  //       setLoading(false)
-  //     }
-  //   }
+  useEffect(() => {
+    const fetchCachedTags = () => {
+      const cachedTags = localStorage.getItem("cachedTags")
+      if (cachedTags) {
+        setTags(JSON.parse(cachedTags))
+      }
+    }
 
-  //   if (tags.length === 0 && !noTagsAvailable) {
-  //     fetchTags()
-  //   } else {
-  //     console.log("Tags are cached")
-  //     setLoading(false)
-  //   }
-  // }, [])
+    fetchCachedTags()
+  }, [])
 
-  // const fetchTags = async () => {
-  //   try {
-  //     const response = await fetch(`/api/getTags`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ userId: user.id }),
-  //     })
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await fetch(`/api/getTags`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId: user.id }),
+        })
+        if (!response.ok) {
+          throw new Error("Failed to fetch tags")
+        }
+        const { data } = await response.json()
+        if (data.length === 0) {
+          setNoTagsAvailable(true)
+        } else {
+          console.log("Tags available")
+          setTags(data)
+          localStorage.setItem("cachedTags", JSON.stringify(data))
+        }
+      } catch (error) {
+        console.error("Error fetching tags:", error.message)
+      } finally {
+        setLoading(false)
+      }
+    }
 
-  //     if (!response.ok) {
-  //       throw new Error("Failed to fetch tags")
-  //     }
-
-  //     const { data } = await response.json()
-  //     setTags(data)
-
-  //     localStorage.setItem("cachedTags", JSON.stringify(data))
-
-  //     setLoading(false)
-  //   } catch (error) {
-  //     console.error("Error fetching tags:", error.message)
-  //   }
-  // }
+    if (tags.length === 0) {
+      fetchTags()
+    }
+  }, [tags.length, user.id])
 
   const submitCreateTag = async (evt) => {
     evt.preventDefault()
@@ -99,16 +76,48 @@ const DashboardBody = ({ children, tag, user }) => {
       toast.success("Tag created successfully!")
       evt.target.title.value = ""
 
-      fetchTags()
+      setTags([])
     } catch (error) {
       console.error("Error creating tag:", error.message)
       toast.error("Failed to create tag. Please try again.")
     }
   }
 
+  const deleteFolder = async (folderId) => {
+    try {
+      const response = await fetch(`/api/deleteTag/${folderId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to delete folder")
+      }
+
+      toast.success("Folder deleted successfully!")
+      setTags(tags.filter((tag) => tag.id !== folderId))
+    } catch (error) {
+      console.error("Error deleting folder:", error.message)
+      toast.error("Failed to delete folder. Please try again.")
+    }
+  }
+
+  const handleDeleteConfirmation = (folderId) => {
+    setFolderToDelete(folderId)
+  }
+
+  const confirmDelete = () => {
+    if (folderToDelete) {
+      deleteFolder(folderToDelete)
+      setFolderToDelete(null)
+    }
+  }
+
   return (
     <div
-      onClick={function (evt) {
+      onClick={(evt) => {
         if (evt.target.id === "main") {
           setShowAdd(false)
         }
@@ -121,51 +130,55 @@ const DashboardBody = ({ children, tag, user }) => {
     >
       <main className="flex-grow bg-white mt-0 rounded-b-md">
         <OneClickTitle {...{ tag }} />
-        {/* {location.pathname.startsWith("/dashboard/") &&
+        {location.pathname.startsWith("/dashboard/") &&
           location.pathname !== "/dashboard" && (
             <a
               href="/dashboard"
-              className="bg-overcast text-glacierBlue px-4 py-2 ml-12 rounded-md border border-glacierBlue hover:bg-glacierBlue hover:border-transparent hover:text-overcast transition-colors duration-300"
+              className="bg-glacierBlue text-white px-4 py-2 ml-12 rounded-md border border-glacierBlue hover:bg-glacierBlue hover:border-transparent hover:text-overcast hover:brightness-110 transition-all duration-300"
             >
-              All Tags
+              All Folders
             </a>
-          )} */}
-        <div className="ml-12 mt-4">
+          )}
+        <form onSubmit={submitCreateTag} className="ml-12 mt-4">
           <input
             id="title"
-            placeholder="New Tag"
-            onSubmit={submitCreateTag}
+            placeholder="New Folder"
             required
             className="border border-gray-300 rounded-md mb-6 mt-2 px-4 py-2 mr-2 focus:outline-none focus:border-blue-500 flex-grow"
           />
-          <button className="bg-overcast text-glacierBlue px-4 py-2 rounded-md hover:bg-glacierBlue focus:outline-none focus:bg-blue-600 hover:text-overcast transition-colors duration-300">
-            Create Tag
+          <button
+            type="submit"
+            className="bg-overcast text-glacierBlue px-4 py-2 rounded-md hover:bg-glacierBlue focus:outline-none focus:bg-blue-600 hover:text-overcast transition-colors duration-300"
+          >
+            Create Folder
           </button>
-        </div>
+        </form>
+
         {loading ? (
           <p className="text-glacierBlue ml-12">Loading...</p>
         ) : (
           <>
-            {tags.length === 0 ? (
-              <p>No tags found.</p>
+            {noTagsAvailable ? (
+              <p className="text-glacierBlue ml-12">No folders found.</p>
             ) : (
-              <ul className="flex gap-3 ml-12 overflow-x-scroll overflow-y-hidden no-scrollbar">
+              <ul className="flex gap-3 ml-12">
+                <span className="text-lg text-glacierBlue pt-1">Folders:</span>
                 {tags.map((tag) => (
-                  <li key={tag.id}>
-                    <a
-                      href={
-                        location.pathname === `/dashboard/${tag.title}`
-                          ? null
-                          : `/dashboard/${tag.title}`
-                      }
-                      className={`px-3 py-1 rounded-md ${
-                        location.pathname === `/dashboard/${tag.title}`
-                          ? "text-overcast font-semibold bg-glacierBlue"
-                          : "hover:bg-glacierBlue hover:text-overcast bg-overcast text-glacierBlue"
-                      } transition-colors duration-300`}
-                    >
-                      {tag.title}
-                    </a>
+                  <li key={tag.id} className="flex items-center relative">
+                    <div className="flex items-center">
+                      <a
+                        href={`/dashboard/${tag.title}`}
+                        className={`px-4 py-1 hover:bg-glacierBlue hover:text-overcast bg-overcast text-md text-glacierBlue transition-colors duration-300 h-fit`}
+                      >
+                        {tag.title}
+                      </a>
+                      <div
+                        className="px-2 py-1 text-red-600 hover:text-red-800 bg-overcast focus:outline-none cursor-pointer"
+                        onClick={() => handleDeleteConfirmation(tag.id)}
+                      >
+                        X
+                      </div>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -182,10 +195,32 @@ const DashboardBody = ({ children, tag, user }) => {
         </button>
 
         <div className="h-fit pb-1 rounded-lg">{children}</div>
+        {folderToDelete && (
+          <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-10">
+            <div className="bg-white p-8 rounded shadow-lg">
+              <p className="text-lg text-gray-900 mb-4">
+                Are you sure you want to delete this folder?
+              </p>
+              <div className="flex justify-end">
+                <button
+                  onClick={() => setFolderToDelete(null)}
+                  className="text-gray-600 hover:text-gray-900 mr-4"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={confirmDelete}
+                  className="text-red-600 hover:text-red-800"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         <AddLesson show={showAdd} setShow={setShowAdd} />
       </main>
     </div>
   )
 }
-
 export default DashboardBody

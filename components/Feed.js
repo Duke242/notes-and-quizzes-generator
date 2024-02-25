@@ -5,7 +5,7 @@ import { createSupabaseServerClient } from "@/libs/createSupabaseServerClient"
 
 export default async function Feed({ user, tag }) {
   const supabase = createSupabaseServerClient()
-  let tags = [] // Initialize tags outside try-catch block
+  let tags = []
 
   try {
     let query

@@ -5,11 +5,6 @@ import { cookies } from "next/headers"
 
 export async function POST(req) {
   const supabase = createSupabaseServerClient()
-  // const supabaseSession = createServerComponentClient({ cookies })
-
-  // const {
-  //   data: { session },
-  // } = await supabaseSession.auth.getSession()
 
   const payload = await req.json()
 

@@ -42,8 +42,6 @@ export async function POST(req) {
 
     await supabase.from("notes_tags").insert({ tag_id, note_id: note.id })
 
-    revalidatePath("/dashboard")
-
     if (error) {
       throw error
     }
