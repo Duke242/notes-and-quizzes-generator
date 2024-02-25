@@ -14,8 +14,6 @@ export async function POST(req) {
     data: { session },
   } = await supabaseSession.auth.getSession()
 
-  // console.log({ a: session.user.id })
-
   const payload = await req.json()
 
   try {
@@ -26,21 +24,22 @@ export async function POST(req) {
           creator_id: session.user.id,
           title: payload.title,
           content: payload.content,
+          category: payload.category,
         },
       ])
       .select()
       .single()
-    let tag_id = null // Default tag_id to null
-    if (payload.tag) {
-      const { data: tag } = await supabase
-        .from("tags")
-        .select("id")
-        .eq("title", payload.tag)
-        .single()
-      tag_id = tag ? tag.id : null // If tag is found, use its id, otherwise set to null
-    }
+    // let tag_id = null // Default tag_id to null
+    // if (payload.tag) {
+    //   const { data: tag } = await supabase
+    //     .from("tags")
+    //     .select("id")
+    //     .eq("title", payload.tag)
+    //     .single()
+    //   tag_id = tag ? tag.id : null // If tag is found, use its id, otherwise set to null
+    // }
 
-    await supabase.from("notes_tags").insert({ tag_id, note_id: note.id })
+    // await supabase.from("notes_tags").insert({ tag_id, note_id: note.id })
 
     revalidatePath("/dashboard")
 
