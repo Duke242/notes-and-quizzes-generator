@@ -86,13 +86,13 @@ function OneClickTitle({ tag }) {
             setTitle(e.target.value)
           }}
           placeholder="Please provide a title, and the AI will generate the notes."
-          className="border border-1 rounded-md shadow w-1/3 p-3 text-xlg border-ice outline-none focus:shadow-md"
+          className="border border-1 mt-4 md:mt-0 md:text-normal text-sm rounded-md shadow w-full md:w-1/3 p-3 text-xlg border-ice outline-none focus:shadow-md"
           required
           id="oneClickForm"
         />
         <button
           type="submit"
-          className={`bg-glacierBlue text-white mt-4 px-3 py-2 mx-auto rounded-md hover:bg-opacity-80 focus:bg-opacity-80 focus:outline-none shadow-md transition-colors duration-300 ${
+          className={`bg-glacierBlue text-white mt-4 mb-4 md:mb-0 px-3 py-2 mx-auto rounded-md hover:bg-opacity-80 focus:bg-opacity-80 focus:outline-none shadow-md transition-colors duration-300 ${
             isLoading ? "opacity-50 cursor-not-allowed" : ""
           }`}
           id="oneClickSubmit"

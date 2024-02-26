@@ -119,7 +119,7 @@ const DashboardBody = ({ children, tag, user }) => {
               location.pathname !== "/dashboard" && (
                 <a
                   href="/dashboard"
-                  className="bg-glacierBlue text-white px-4 py-2 ml-14 rounded-md border border-glacierBlue hover:bg-glacierBlue hover:border-transparent hover:text-overcast hover:brightness-110 transition-all duration-300"
+                  className="bg-glacierBlue text-white px-4 py-2 ml-2 md:ml-14 rounded-md border border-glacierBlue hover:bg-glacierBlue hover:border-transparent hover:text-overcast hover:brightness-110 transition-all duration-300"
                 >
                   All Folders
                 </a>
