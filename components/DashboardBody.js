@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react"
 import AddLesson from "./AddLesson"
 import OneClickTitle from "./OneClickTitle"
 import toast from "react-hot-toast"
+import { deleteFolder } from "@/libs/deleteFolder"
 
 const DashboardBody = ({ children, tag, user }) => {
   const [showAdd, setShowAdd] = useState(false)
@@ -83,35 +84,16 @@ const DashboardBody = ({ children, tag, user }) => {
     }
   }
 
-  const deleteFolder = async (folderId) => {
-    try {
-      const response = await fetch(`/api/deleteTag/${folderId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-
-      if (!response.ok) {
-        throw new Error("Failed to delete folder")
-      }
-
-      toast.success("Folder deleted successfully!")
-      setTags(tags.filter((tag) => tag.id !== folderId))
-    } catch (error) {
-      console.error("Error deleting folder:", error.message)
-      toast.error("Failed to delete folder. Please try again.")
-    }
-  }
-
-  const handleDeleteConfirmation = (folderId) => {
+  const handleDeleteConfirmation = (e, folderId) => {
+    e.preventDefault()
     setFolderToDelete(folderId)
   }
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (folderToDelete) {
-      deleteFolder(folderToDelete)
+      await deleteFolder(folderToDelete)
       setFolderToDelete(null)
+      window.location.reload()
     }
   }
 
@@ -129,62 +111,81 @@ const DashboardBody = ({ children, tag, user }) => {
       className="min-h-screen flex flex-col"
     >
       <main className="flex-grow bg-white mt-0 rounded-b-md">
-        <OneClickTitle {...{ tag }} />
-        {location.pathname.startsWith("/dashboard/") &&
-          location.pathname !== "/dashboard" && (
-            <a
-              href="/dashboard"
-              className="bg-glacierBlue text-white px-4 py-2 ml-12 rounded-md border border-glacierBlue hover:bg-glacierBlue hover:border-transparent hover:text-overcast hover:brightness-110 transition-all duration-300"
-            >
-              All Folders
-            </a>
-          )}
-        <form onSubmit={submitCreateTag} className="ml-12 mt-4">
-          <input
-            id="title"
-            placeholder="New Folder"
-            required
-            className="border border-gray-300 rounded-md mb-6 mt-2 px-4 py-2 mr-2 focus:outline-none focus:border-blue-500 flex-grow"
-          />
-          <button
-            type="submit"
-            className="bg-overcast text-glacierBlue px-4 py-2 rounded-md hover:bg-glacierBlue focus:outline-none focus:bg-blue-600 hover:text-overcast transition-colors duration-300"
-          >
-            Create Folder
-          </button>
-        </form>
+        <div>
+          <OneClickTitle {...{ tag }} />
 
-        {loading ? (
-          <p className="text-glacierBlue ml-12">Loading...</p>
-        ) : (
-          <>
-            {noTagsAvailable ? (
-              <p className="text-glacierBlue ml-12">No folders found.</p>
+          <section>
+            {location.pathname.startsWith("/dashboard/") &&
+              location.pathname !== "/dashboard" && (
+                <a
+                  href="/dashboard"
+                  className="bg-glacierBlue text-white px-4 py-2 ml-14 rounded-md border border-glacierBlue hover:bg-glacierBlue hover:border-transparent hover:text-overcast hover:brightness-110 transition-all duration-300"
+                >
+                  All Folders
+                </a>
+              )}
+            <form onSubmit={submitCreateTag} className="mt-4 mx-2">
+              <div className="flex items-center mb-2 md:w-1/4 md:ml-12">
+                <input
+                  id="title"
+                  placeholder="New Folder"
+                  required
+                  className="border border-gray-300 rounded-md px-3 py-2 mr-2 flex-grow focus:outline-none focus:border-blue-500"
+                />
+                <button
+                  type="submit"
+                  className="bg-overcast text-glacierBlue px-4 py-2 rounded-md hover:bg-glacierBlue focus:outline-none focus:bg-blue-600 hover:text-overcast transition-colors duration-300"
+                >
+                  Create Folder
+                </button>
+              </div>
+            </form>
+
+            {loading ? (
+              <p className="text-glacierBlue ml-2 md:ml-12 mt-2">Loading...</p>
             ) : (
-              <ul className="flex gap-3 ml-12">
-                <span className="text-lg text-glacierBlue pt-1">Folders:</span>
-                {tags.map((tag) => (
-                  <li key={tag.id} className="flex items-center relative">
-                    <div className="flex items-center">
-                      <a
-                        href={`/dashboard/${tag.title}`}
-                        className={`px-4 py-1 hover:bg-glacierBlue hover:text-overcast bg-overcast text-md text-glacierBlue transition-colors duration-300 h-fit`}
-                      >
-                        {tag.title}
-                      </a>
-                      <div
-                        className="px-2 py-1 text-red-600 hover:text-red-800 bg-overcast focus:outline-none cursor-pointer"
-                        onClick={() => handleDeleteConfirmation(tag.id)}
-                      >
-                        X
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              <>
+                {noTagsAvailable ? (
+                  <p className="text-glacierBlue ml-2 mt-2">
+                    No folders found.
+                  </p>
+                ) : (
+                  <ul className="ml-2 mt-2 md:flex gap-2">
+                    <span className="font-bold text-glacierBlue md:ml-12 md:mt-4">
+                      Folders:
+                    </span>
+                    {tags.map((tag) => (
+                      <li key={tag.id} className="mt-2">
+                        <a
+                          href={`/dashboard/${tag.title}`}
+                          className={`block w-fit px-4 py-2 rounded-md text-md transition-colors duration-300 ${
+                            location.pathname.endsWith(tag.title)
+                              ? "bg-glacierBlue text-white"
+                              : "bg-overcast text-glacierBlue"
+                          }`}
+                        >
+                          <span className="flex items-center">
+                            {tag.title}
+                            {location.pathname.endsWith(tag.title) && (
+                              <div
+                                className="ml-2 text-red-600 hover:text-red-800 focus:outline-none cursor-pointer font-bold"
+                                onClick={(e) =>
+                                  handleDeleteConfirmation(e, tag.id)
+                                }
+                              >
+                                X
+                              </div>
+                            )}
+                          </span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </>
             )}
-          </>
-        )}
+          </section>
+        </div>
         <h1 className="text-3xl font-normal text-glacierBlue p-8">Learnings</h1>
         <button
           onClick={() => setShowAdd((v) => !v)}
