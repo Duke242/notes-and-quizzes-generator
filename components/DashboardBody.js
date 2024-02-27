@@ -121,7 +121,7 @@ const DashboardBody = ({ children, tag, user }) => {
                   href="/dashboard"
                   className="bg-glacierBlue text-white px-4 py-2 ml-2 md:ml-14 rounded-md border border-glacierBlue hover:bg-glacierBlue hover:border-transparent hover:text-overcast hover:brightness-110 transition-all duration-300"
                 >
-                  All Folders
+                  All Notes
                 </a>
               )}
             <form onSubmit={submitCreateTag} className="mt-4 mx-2">
@@ -134,7 +134,7 @@ const DashboardBody = ({ children, tag, user }) => {
                 />
                 <button
                   type="submit"
-                  className="bg-overcast text-glacierBlue px-4 py-2 rounded-md hover:bg-glacierBlue focus:outline-none focus:bg-blue-600 hover:text-overcast transition-colors duration-300"
+                  className="bg-overcast text-glacierBlue px-4 py-2 rounded-md hover:bg-glacierBlue focus:outline-none hover:text-overcast hover:scale-105 transform hover:shadow-lg duration-300"
                 >
                   Create Folder
                 </button>
@@ -158,10 +158,11 @@ const DashboardBody = ({ children, tag, user }) => {
                       <li key={tag.id} className="mt-2">
                         <a
                           href={`/dashboard/${tag.title}`}
-                          className={`block w-fit px-4 py-2 rounded-md text-md transition-colors duration-300 ${
-                            location.pathname.endsWith(tag.title)
-                              ? "bg-glacierBlue text-white"
-                              : "bg-overcast text-glacierBlue"
+                          className={`block w-fit px-4 py-2 rounded-md text-md transition-all duration-300 ${
+                            location.pathname.trim() ===
+                            `/dashboard/${tag.title}`.trim()
+                              ? "bg-glacierBlue text-white hover:shadow-md transform hover:scale-105"
+                              : "bg-overcast text-glacierBlue hover:shadow-lg transform hover:scale-105"
                           }`}
                         >
                           <span className="flex items-center">
