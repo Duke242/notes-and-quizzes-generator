@@ -6,12 +6,6 @@ function OneClickTitle({ tag }) {
   const [content, setContent] = useState("")
   const [isLoading, setIsLoading] = useState(false) // State variable to track loading status
 
-  useEffect(() => {
-    if (content !== "") {
-      handleSubmit()
-    }
-  }, [content]) // Run this effect whenever `content` or `isLoading` changes
-
   const handleSubmit = async () => {
     try {
       const response = await fetch("/api/post", {
@@ -57,6 +51,7 @@ function OneClickTitle({ tag }) {
       if (response.ok) {
         const data = await response.json()
         setContent(data.content)
+        handleSubmit()
       } else {
         console.error("Failed to fetch notes")
       }
