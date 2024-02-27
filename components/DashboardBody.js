@@ -93,6 +93,7 @@ const DashboardBody = ({ children, tag, user }) => {
     if (folderToDelete) {
       await deleteFolder(folderToDelete)
       setFolderToDelete(null)
+      toast.error("Folder deleted successfully")
       window.location.reload()
     }
   }
@@ -146,7 +147,7 @@ const DashboardBody = ({ children, tag, user }) => {
             ) : (
               <>
                 {noTagsAvailable ? (
-                  <p className="text-glacierBlue ml-2 mt-2">
+                  <p className="text-glacierBlue ml-2 mt-2 ml-12">
                     No folders found.
                   </p>
                 ) : (
