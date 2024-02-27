@@ -167,7 +167,8 @@ const DashboardBody = ({ children, tag, user }) => {
                         >
                           <span className="flex items-center">
                             {tag.title}
-                            {location.pathname.endsWith(tag.title) && (
+                            {location.pathname.trim() ===
+                              `/dashboard/${tag.title}`.trim() && (
                               <div
                                 className="ml-2 text-red-600 hover:text-red-800 focus:outline-none cursor-pointer font-bold"
                                 onClick={(e) =>
