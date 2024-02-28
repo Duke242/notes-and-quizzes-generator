@@ -5,7 +5,7 @@ import config from "@/config"
 import "./globals.css"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-// import { nunito } from "@/libs/fonts"
+
 import { Nunito } from "next/font/google"
 
 const nunito = Nunito({
