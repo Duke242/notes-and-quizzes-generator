@@ -1,4 +1,3 @@
-import { Inter } from "next/font/google"
 import PlausibleProvider from "next-plausible"
 import { getSEOTags } from "@/libs/seo"
 import ClientLayout from "@/components/LayoutClient"
@@ -6,9 +5,14 @@ import config from "@/config"
 import "./globals.css"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { nunito } from "@/libs/fonts"
+// import { nunito } from "@/libs/fonts"
+import { Nunito } from "next/font/google"
 
-const font = Inter({ subsets: ["latin"] })
+const nunito = Nunito({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+})
 
 export const viewport = {
   // Will use the primary color of your theme to show a nice theme color in the URL bar of supported browsers
@@ -26,7 +30,7 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       data-theme={config.colors.theme}
-      className={nunito.variable}
+      className={nunito.className}
     >
       {config.domainName && (
         <head>

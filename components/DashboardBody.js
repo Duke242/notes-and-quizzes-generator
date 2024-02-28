@@ -147,7 +147,7 @@ const DashboardBody = ({ children, tag, user }) => {
             ) : (
               <>
                 {noTagsAvailable ? (
-                  <p className="text-glacierBlue ml-2 mt-2 ml-12">
+                  <p className="text-glacierBlue mt-2 ml-14 pl-1">
                     No folders found.
                   </p>
                 ) : (
