@@ -1,11 +1,13 @@
 "use client"
 import React, { useEffect, useState } from "react"
+import { useRoute, usePathname } from "next/navigation"
 import AddLesson from "./AddLesson"
 import OneClickTitle from "./OneClickTitle"
 import toast from "react-hot-toast"
 import { deleteFolder } from "@/libs/deleteFolder"
 
 const DashboardBody = ({ children, tag, user }) => {
+  const pathname = usePathname()
   const [showAdd, setShowAdd] = useState(false)
   const [tags, setTags] = useState([])
   const [loading, setLoading] = useState(true)
@@ -40,7 +42,6 @@ const DashboardBody = ({ children, tag, user }) => {
         if (data.length === 0) {
           setNoTagsAvailable(true)
         } else {
-          console.log("Tags available")
           setTags(data)
           localStorage.setItem("cachedTags", JSON.stringify(data))
         }
@@ -116,8 +117,8 @@ const DashboardBody = ({ children, tag, user }) => {
           <OneClickTitle {...{ tag }} />
 
           <section>
-            {location.pathname.startsWith("/dashboard/") &&
-              location.pathname !== "/dashboard" && (
+            {pathname.startsWith("/dashboard/") &&
+              pathname !== "/dashboard" && (
                 <a
                   href="/dashboard"
                   className="bg-glacierBlue text-white px-4 py-2 ml-2 md:ml-14 rounded-md border border-glacierBlue hover:bg-glacierBlue hover:border-transparent hover:text-overcast hover:brightness-110 transition-all duration-300"
@@ -160,15 +161,14 @@ const DashboardBody = ({ children, tag, user }) => {
                         <a
                           href={`/dashboard/${tag.title}`}
                           className={`block w-fit px-4 py-2 rounded-md text-md transition-all duration-300 ${
-                            location.pathname.trim() ===
-                            `/dashboard/${tag.title}`.trim()
+                            pathname.trim() === `/dashboard/${tag.title}`.trim()
                               ? "bg-glacierBlue text-white hover:shadow-md transform hover:scale-105"
                               : "bg-overcast text-glacierBlue hover:shadow-lg transform hover:scale-105"
                           }`}
                         >
                           <span className="flex items-center">
                             {tag.title}
-                            {location.pathname.trim() ===
+                            {pathname.trim() ===
                               `/dashboard/${tag.title}`.trim() && (
                               <div
                                 className="ml-2 text-red-600 hover:text-red-800 focus:outline-none cursor-pointer font-bold"

@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 
@@ -5,6 +6,11 @@ function OneClickTitle({ tag }) {
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
   const [isLoading, setIsLoading] = useState(false) // State variable to track loading status
+  useEffect(() => {
+    if (content !== "") {
+      handleSubmit()
+    }
+  }, [content]) // Run this effect whenever `content` or `isLoading` changes
 
   const handleSubmit = async () => {
     try {
@@ -51,7 +57,6 @@ function OneClickTitle({ tag }) {
       if (response.ok) {
         const data = await response.json()
         setContent(data.content)
-        handleSubmit()
       } else {
         console.error("Failed to fetch notes")
       }
@@ -92,7 +97,7 @@ function OneClickTitle({ tag }) {
           }`}
           id="oneClickSubmit"
           disabled={isLoading}
-          style={{ width: "200px" }} // Set width to 200px
+          style={{ width: "200px" }}
         >
           {isLoading ? "Loading..." : "Generate Notes"}
         </button>
