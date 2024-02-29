@@ -136,7 +136,7 @@ const DashboardBody = ({ children, tag, user }) => {
                 />
                 <button
                   type="submit"
-                  className="bg-overcast text-glacierBlue px-4 py-2 rounded-md hover:bg-glacierBlue focus:outline-none hover:text-overcast hover:scale-105 transform hover:shadow-lg duration-300"
+                  className="bg-overcast text-glacierBlue whitespace-nowrap px-4 py-2 rounded-md hover:bg-glacierBlue focus:outline-none hover:text-overcast hover:scale-105 transform hover:shadow-lg duration-300"
                 >
                   Create Folder
                 </button>
