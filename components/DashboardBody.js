@@ -79,6 +79,7 @@ const DashboardBody = ({ children, tag, user }) => {
       evt.target.title.value = ""
 
       setTags([])
+      window.location.reload()
     } catch (error) {
       console.error("Error creating tag:", error.message)
       toast.error("Failed to create tag. Please try again.")
