@@ -1,12 +1,13 @@
 "use client"
 import React, { useEffect, useState } from "react"
-import { useRoute, usePathname } from "next/navigation"
+import { useRoute, usePathname, useRouter } from "next/navigation"
 import AddLesson from "./AddLesson"
 import OneClickTitle from "./OneClickTitle"
 import toast from "react-hot-toast"
 import { deleteFolder } from "@/libs/deleteFolder"
 
 const DashboardBody = ({ children, tag, user }) => {
+  const router = useRouter()
   const pathname = usePathname()
   const [showAdd, setShowAdd] = useState(false)
   const [tags, setTags] = useState([])
@@ -96,7 +97,7 @@ const DashboardBody = ({ children, tag, user }) => {
       await deleteFolder(folderToDelete)
       setFolderToDelete(null)
       toast.error("Folder deleted successfully")
-      window.location.reload()
+      router.push("/dashboard")
     }
   }
 
