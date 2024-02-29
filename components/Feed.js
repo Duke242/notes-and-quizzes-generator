@@ -91,7 +91,7 @@ export default async function Feed({ user, tag }) {
               />
             ))
           ) : (
-            <p className="text-xl mt-4 text-warmGray">No lessons to display.</p>
+            <p className="text-xl mt-4 text-warmGray">No notes to display.</p>
           )}
         </main>
       </section>
