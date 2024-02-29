@@ -23,6 +23,12 @@ function WaysToLearn() {
           devices help encode information in a memorable way.
         </li>
       </ul>
+      <p className="text-center max-w-xl mx-auto mt-8 bg-gradient-to-r from-ice to-glacierBlue text-white py-4 px-6 text-lg rounded-lg shadow-lg">
+        Discover Selflearner's power! With AI-generated explanations on any
+        topic you choose, you build a mental structure that helps you learn
+        faster. See how this process works for you, or stick to old ways and
+        fall behind those using Selflearner to learn better and quicker.
+      </p>
     </div>
   )
 }

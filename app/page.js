@@ -18,8 +18,8 @@ export default function Page() {
             <Hero />
           </div>
         </div>
+        <WaysToLearn />
         <Benefits />
-        {/* <WaysToLearn /> */}
         <Pricing />
         <FAQ />
         <Footer />
