@@ -247,6 +247,8 @@ const HelpModal = ({ setShowHelpModal }) => {
           - Effortlessly create your own notes or let our AI generate them for
           you. <br /> - Our AI ensures notes are simple and easy to understand,
           aiding better retention.
+          <br /> - When inputting the topic for AI-generated notes, provide a
+          descriptive topic for better note quality.
           <br /> - Clear explanations facilitate easier revisiting and
           reinforcement of knowledge.
           <br /> - Organize your notes by subject using folders for easy access

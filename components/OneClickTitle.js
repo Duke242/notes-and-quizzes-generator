@@ -85,7 +85,7 @@ function OneClickTitle({ tag }) {
           onChange={(e) => {
             setTitle(e.target.value)
           }}
-          placeholder="Please provide a title, and the AI will generate the notes."
+          placeholder="Please provide a topic, and the AI will generate the notes."
           className="border border-1 mt-4 md:mt-0 md:text-normal text-sm rounded-md shadow w-full md:w-1/3 p-3 text-xlg border-ice outline-none focus:shadow-md"
           required
           id="oneClickForm"
