@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from "react"
-import { useRoute, usePathname, useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import AddLesson from "./AddLesson"
 import OneClickTitle from "./OneClickTitle"
 import toast from "react-hot-toast"
@@ -14,6 +14,7 @@ const DashboardBody = ({ children, tag, user }) => {
   const [loading, setLoading] = useState(true)
   const [noTagsAvailable, setNoTagsAvailable] = useState(false)
   const [folderToDelete, setFolderToDelete] = useState(null)
+  const [showHelpModal, setShowHelpModal] = useState(false)
 
   useEffect(() => {
     const fetchCachedTags = () => {
@@ -114,6 +115,13 @@ const DashboardBody = ({ children, tag, user }) => {
       }}
       className="min-h-screen flex flex-col"
     >
+      <button
+        onClick={() => setShowHelpModal(true)}
+        className="bg-glacierBlue ml-8 text-white px-4 py-2 rounded-md mt-4 w-fit"
+      >
+        How do I use this website?
+      </button>
+      {showHelpModal && <HelpModal setShowHelpModal={setShowHelpModal} />}
       <main className="flex-grow bg-white mt-0 rounded-b-md">
         <div>
           <OneClickTitle {...{ tag }} />
@@ -229,4 +237,34 @@ const DashboardBody = ({ children, tag, user }) => {
     </div>
   )
 }
+
+const HelpModal = ({ setShowHelpModal }) => {
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-10">
+      <div className="bg-white p-8 rounded shadow-lg mx-auto w-1/2">
+        <h2 className="text-lg font-bold mb-4">How do I use this?</h2>
+        <p className="text-gray-700">
+          - Effortlessly create your own notes or let our AI generate them for
+          you. <br /> - Our AI ensures notes are simple and easy to understand,
+          aiding better retention.
+          <br /> - Clear explanations facilitate easier revisiting and
+          reinforcement of knowledge.
+          <br /> - Organize your notes by subject using folders for easy access
+          and management.
+          <br /> - Notes created 6, 24, 72, and 168 hours ago are sorted into
+          the "Needs Review" section for further learning.
+          <br />- Press on a note to access the option to take a quiz, testing
+          your understanding.
+        </p>
+        <button
+          onClick={() => setShowHelpModal(false)}
+          className="text-blue-600 hover:text-blue-800 mt-4"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  )
+}
+
 export default DashboardBody
