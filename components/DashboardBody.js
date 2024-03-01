@@ -77,7 +77,7 @@ const DashboardBody = ({ children, tag, user }) => {
         throw new Error("Failed to create tag")
       }
 
-      toast.success("Tag created successfully!")
+      toast.success("Folder created successfully!")
       evt.target.title.value = ""
 
       setTags([])
