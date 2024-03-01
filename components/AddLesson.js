@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import { toast } from "react-hot-toast"
 import { MdCancel } from "react-icons/md"
 
-const AddLesson = ({ show = false, setShow }) => {
+const AddLesson = ({ show = false, setShow, tag }) => {
   const [showQuiz, setShowQuiz] = useState(false)
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
@@ -13,6 +13,7 @@ const AddLesson = ({ show = false, setShow }) => {
     const payload = {
       title,
       content,
+      tag,
     }
     try {
       const response = await fetch("/api/post", {

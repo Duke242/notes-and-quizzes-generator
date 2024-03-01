@@ -232,7 +232,7 @@ const DashboardBody = ({ children, tag, user }) => {
             </div>
           </div>
         )}
-        <AddLesson show={showAdd} setShow={setShowAdd} />
+        <AddLesson show={showAdd} setShow={setShowAdd} {...{ tag }} />
       </main>
     </div>
   )
