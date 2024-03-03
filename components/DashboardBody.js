@@ -117,7 +117,8 @@ const DashboardBody = ({ children, tag, user }) => {
     >
       <button
         onClick={() => setShowHelpModal(true)}
-        className="bg-glacierBlue ml-8 text-white px-4 py-2 rounded-md mt-4 w-fit"
+        // className="bg-glacierBlue ml-8 text-white px-4 py-2 rounded-md mt-4 w-fit"
+        className="text-glacierBlue underline ml-8 mt-4 w-fit md:bg-glacierBlue md:px-4 md:text-white md:py-2 md:rounded-md md:no-underline"
       >
         How do I use this website?
       </button>
@@ -131,7 +132,7 @@ const DashboardBody = ({ children, tag, user }) => {
               pathname !== "/dashboard" && (
                 <a
                   href="/dashboard"
-                  className="bg-glacierBlue text-white px-4 py-2 ml-2 md:ml-14 rounded-md border border-glacierBlue hover:bg-glacierBlue hover:border-transparent hover:text-overcast hover:brightness-110 transition-all duration-300"
+                  className="text-glacierBlue px-4 py-2 ml-2 md:ml-14 rounded-md md:bg-glacierBlue md:text-white hover:bg-glacierBlue hover:border-transparent hover:text-overcast hover:brightness-110 transition-all duration-300 underline md:no-underline"
                 >
                   All Notes
                 </a>
