@@ -23,7 +23,7 @@ export default async function Dashboard() {
       throw new Error(error.message)
     }
 
-    const userAccess = stripe
+    const userAccess = stripe[0].has_access
 
     if (userAccess) {
       return (
