@@ -25,7 +25,7 @@ export default async function Dashboard() {
 
     const userAccess = stripe
 
-    if (userAccess) {
+    if (userAccess === true) {
       return (
         <>
           <TopDashboard />
@@ -39,6 +39,6 @@ export default async function Dashboard() {
     }
   } catch (error) {
     console.error("Error in Dashboard:", error.message)
-    return null
+    return <Subscribe />
   }
 }
