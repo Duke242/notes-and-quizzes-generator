@@ -25,7 +25,7 @@ export default async function Dashboard() {
 
     const userAccess = stripe
 
-    if (userAccess === true) {
+    if (userAccess) {
       return (
         <>
           <TopDashboard />
