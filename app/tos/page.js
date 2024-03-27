@@ -57,17 +57,17 @@ const TOS = () => {
           className="leading-relaxed whitespace-pre-wrap"
           style={{ fontFamily: "sans-serif" }}
         >
-          {`Terms of Service for SelfLearner
+          {`Terms of Service for SimpleNotes
 
-This document outlines the terms and conditions governing the use of the SelfLearner website (https://www.selflearner.today/). By accessing and using this website, you agree to comply with these terms. If you do not agree with any part of these terms, please do not use our website.
+This document outlines the terms and conditions governing the use of the SimpleNotes website (https://www.simplenotes.pro/). By accessing and using this website, you agree to comply with these terms. If you do not agree with any part of these terms, please do not use our website.
 
 1. Description of the Service
 
-SelfLearner provides a platform for a better way to learn. Users can access educational content and services through our website.
+SimpleNotes provides a platform for a better way to learn. Users can access educational content and services through our website.
 
 2. User Data Collection
 
-In the course of providing our services, SelfLearner collects and processes user data, including but not limited to name, email, and payment information. We are committed to protecting your privacy, and details on how we handle your information can be found in our Privacy Policy.
+In the course of providing our services, SimpleNotes collects and processes user data, including but not limited to name, email, and payment information. We are committed to protecting your privacy, and details on how we handle your information can be found in our Privacy Policy.
 
 3. Non-Personal Data Collection
 
@@ -79,11 +79,11 @@ These terms are governed by the laws of the United States of America. Any disput
 
 5. Updates to the Terms
 
-Users will be notified of any updates to these terms via email. It is your responsibility to review these terms regularly. Continued use of the SelfLearner website after changes are made constitutes acceptance of the updated terms.
+Users will be notified of any updates to these terms via email. It is your responsibility to review these terms regularly. Continued use of the SimpleNotes website after changes are made constitutes acceptance of the updated terms.
 
 Contact Information:
 
-For any questions or concerns regarding these terms, you can contact us at peakmotivation00@gmail.com.`}
+For any questions or concerns regarding these terms, you can contact us at simplenotes_support@proton.me.`}
         </pre>
       </div>
     </main>

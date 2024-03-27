@@ -13,7 +13,7 @@ const faqList = [
         AI assisting you in learning topics that capture your interest.
         <br />
         <a
-          href="http://selflearner.today/video"
+          href="http://simplenotes.pro/video"
           target="_blank"
           className="text-blue-500 underline"
         >
@@ -30,7 +30,7 @@ const faqList = [
         by email.
         <br />
         <span className="text-gray-400">Email: </span>
-        selflearner_support@proton.me
+        simplenotes_support@proton.me
       </p>
     ),
   },
@@ -40,7 +40,7 @@ const faqList = [
       <div className="space-y-2 leading-relaxed">
         Contact us by email. <br />
         <span className="text-gray-400">Email: </span>
-        selflearner_support@proton.me
+        simplenotes_support@proton.me
       </div>
     ),
   },

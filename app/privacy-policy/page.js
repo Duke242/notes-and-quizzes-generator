@@ -57,11 +57,11 @@ const PrivacyPolicy = () => {
           className="leading-relaxed whitespace-pre-wrap"
           style={{ fontFamily: "sans-serif" }}
         >
-          {`Privacy Policy for SelfLearner
+          {`Privacy Policy for SimpleNotes
 
 Last updated: January 16, 2024
 
-Thank you for using SelfLearner. This Privacy Policy outlines how we collect, use, and protect your information on our website [https://www.selflearner.today/].
+Thank you for using SimpleNotes. This Privacy Policy outlines how we collect, use, and protect your information on our website [https://www.simplenotes.pro/].
 
 1. Information We Collect:
 
@@ -71,7 +71,7 @@ Personal Data: Name, Email, Payment Information
 Non-personal Data: Web Cookies
 2. Purpose of Data Collection:
 
-We collect your information for the purpose of order processing on SelfLearner.
+We collect your information for the purpose of order processing on SimpleNotes.
 
 3. Data Sharing:
 
@@ -83,13 +83,13 @@ We do not knowingly collect any data from children under the age of 13. If you b
 
 5. Updates to the Privacy Policy:
 
-Users will be notified of any updates to this Privacy Policy via email (sent to peakmotivation00@gmail.com). It is your responsibility to review this policy periodically.
+Users will be notified of any updates to this Privacy Policy via email (sent to simplenotes_support@proton.me). It is your responsibility to review this policy periodically.
 
 6. Contact Information:
 
-For any questions or concerns regarding this Privacy Policy, please contact us at peakmotivation00@gmail.com.
+For any questions or concerns regarding this Privacy Policy, please contact us at simplenotes_support@proton.me.
 
-By using SelfLearner, you agree to the terms outlined in this Privacy Policy.
+By using SimpleNotes, you agree to the terms outlined in this Privacy Policy.
 `}
         </pre>
       </div>

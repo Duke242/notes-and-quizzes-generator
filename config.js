@@ -2,7 +2,7 @@ import themes from "daisyui/src/theming/themes.js"
 
 const config = {
   // REQUIRED
-  appName: "SelfLearner",
+  appName: "SimpleNotes",
   // REQUIRED: a short description of your app for SEO tags (can be overwritten)
   appDescription:
     "Let AI assist you by providing simple notes and quizzes, creating a more organized learning structure for you.",
