@@ -5,7 +5,7 @@ import ButtonSignin from "./ButtonSignin"
 // <Pricing/> displays the pricing plans for your app
 // It's your Stripe config in config.js.stripe.plans[] that will be used to display the plans
 // <ButtonCheckout /> renders a button that will redirect the user to Stripe checkout called the /api/stripe/create-checkout API endpoint with the correct priceId
-
+//
 const Pricing = () => {
   return (
     <section className="bg-base-200 overflow-hidden" id="pricing">
