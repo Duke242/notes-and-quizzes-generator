@@ -11,7 +11,8 @@ const Hero = () => {
         receive the notes, and reinforce learning effortlessly.
       </h1>
       <p className="text-center text-gray-500 mt-4 md:mt-6 lg:mt-8 text-lg md:text-2xl">
-        Whether learning solo or in a group, our tool enhances your experience.
+        Making hard subjects simple, whether you're learning alone or with
+        others.
       </p>
       <div className="w-full text-center mt-6 md:mt-8 lg:mt-10">
         <ButtonSignin
