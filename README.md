@@ -1,8 +1,8 @@
-# Self Learner
+# Notes and Quizzes Generator
 
 ## Overview
 
-Self Learner is an application designed to help users create and manage simple notes and generate quizzes based on topics of their choice. It provides an intuitive interface for note-taking and quiz creation, making self-study and learning more efficient and engaging.
+Notes and Quizzes Generator is an application designed to help users create and manage simple notes and generate quizzes on topics of their choice. The app provides a user-friendly interface for note-taking and quiz creation, enhancing your learning experience.
 
 ## Features
 
